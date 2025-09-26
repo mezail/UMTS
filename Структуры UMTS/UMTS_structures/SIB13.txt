@@ -1,0 +1,91 @@
+SysInfoType13 = SEQUENCE
+ {3, 1}{1, 1}cn-DomainSysInfoList = CN-DomainSysInfoList
+  {5, 1}CN-DomainSysInfoList = SEQUENCE (SIZE(1..maxCNdomains=4)) OF
+   {4, 1}{X, 1}Field = CN-DomainSysInfo
+    {5, 1}CN-DomainSysInfo = SEQUENCE
+     {3, 1}{1, 1}cn-DomainIdentity = CN-DomainIdentity
+      {5, 1}CN-DomainIdentity = ENUMERATED
+       Name{4, 1}cs-domain
+       Name{4, 1}ps-domain
+     {3, 1}{2, 1}cn-Type = CHOICE
+      {4, 1}(1)gsm-MAP = NAS-SystemInformationGSM-MAP
+       {5, 1}Val{4, 1}{X, 1}NAS-SystemInformationGSM-MAP = OCTET STRING (SIZE(1..8))
+      {4, 1}(2)ansi-41 = NAS-SystemInformationANSI-41
+       {5, 1}NAS-SystemInformationANSI-41 = ANSI-41-NAS-Parameter
+        {5, 1}Bits{4, 1}ANSI-41-NAS-Parameter = BIT STRING (SIZE(1..2048))
+     {3, 1}{3, 1}cn-DRX-CycleLengthCoeff = CN-DRX-CycleLengthCoefficient
+      {5, 1}Val{4, 1}CN-DRX-CycleLengthCoefficient = (6..9) INTEGER flexible
+ {3, 1}{2, 1}ue-IdleTimersAndConstants = UE-IdleTimersAndConstants    OPTIONAL
+  {5, 1}UE-IdleTimersAndConstants = SEQUENCE
+   {3, 1}{1, 1}t-300 = T-300
+    {5, 1}T-300 = ENUMERATED
+     Name{4, 1}ms100
+     Name{4, 1}ms200
+     Name{4, 1}ms400
+     Name{4, 1}ms600
+     Name{4, 1}ms800
+     Name{4, 1}ms1000
+     Name{4, 1}ms1200
+     Name{4, 1}ms1400
+     Name{4, 1}ms1600
+     Name{4, 1}ms1800
+     Name{4, 1}ms2000
+     Name{4, 1}ms3000
+     Name{4, 1}ms4000
+     Name{4, 1}ms6000
+     Name{4, 1}ms8000
+   {3, 1}{2, 1}n-300 = N-300
+    {5, 1}Val{4, 1}N-300 = (0..7) INTEGER flexible
+   {3, 1}{3, 1}t-312 = T-312
+    {5, 1}Val{4, 1}T-312 = (0..15) INTEGER flexible
+     {0, 0}-- The value 0 for T-312 is not used in this version of the specification
+   {3, 1}{4, 1}n-312 = N-312
+    {5, 1}N-312 = ENUMERATED
+     Name{4, 1}s1
+     Name{4, 1}s50
+     Name{4, 1}s100
+     Name{4, 1}s200
+     Name{4, 1}s400
+     Name{4, 1}s600
+     Name{4, 1}s800
+     Name{4, 1}s1000
+   {0, 0}-- n-312 shall be ignored if n-312 in UE-IdleTimersAndConstants-v3a0ext is present, and the
+   {0, 0}-- value of that element shall be used instead.
+ {3, 1}{3, 1}capabilityUpdateRequirement = CapabilityUpdateRequirement    OPTIONAL
+  {5, 1}CapabilityUpdateRequirement = SEQUENCE
+   {3, 1}{1, 1}Val{4, 1}ue-RadioCapabilityFDDUpdateRequirement = BOOLEAN
+   {3, 1}{2, 1}Val{4, 1}ue-RadioCapabilityTDDUpdateRequirement = BOOLEAN
+   {3, 1}{3, 1}systemSpecificCapUpdateReqList = SystemSpecificCapUpdateReqList    OPTIONAL
+    {5, 1}SystemSpecificCapUpdateReqList = SEQUENCE (SIZE(1..maxSystemCapability=16)) OF
+     {4, 1}{X, 1}Field = SystemSpecificCapUpdateReq
+      {5, 1}SystemSpecificCapUpdateReq = ENUMERATED
+       Name{4, 1}gsm
+   {0, 0}-- ue-RadioCapabilityTDDUpdateRequirement is for 3.84Mcps TDD update requirement
+ {3, 1}{4, 1}v3a0NonCriticalExtensions = SEQUENCE    OPTIONAL
+  {3, 1}{1, 1}sysInfoType13-v3a0ext = SysInfoType13-v3a0ext-IEs
+   {5, 1}SysInfoType13-v3a0ext-IEs = SEQUENCE
+    {3, 1}{1, 1}ue-IdleTimersAndConstants-v3a0ext = UE-IdleTimersAndConstants-v3a0ext
+     {5, 1}UE-IdleTimersAndConstants-v3a0ext = SEQUENCE
+      {3, 1}{1, 1}n-312 = N-312ext    OPTIONAL
+       {5, 1}N-312ext = ENUMERATED
+        Name{4, 1}s2
+        Name{4, 1}s4
+        Name{4, 1}s10
+        Name{4, 1}s20
+  {3, 1}{2, 1}v4b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+   {3, 1}{1, 1}sysInfoType13-v4b0ext = SysInfoType13-v4b0ext-IEs
+    {5, 1}SysInfoType13-v4b0ext-IEs = SEQUENCE
+     {3, 1}{1, 1}capabilityUpdateRequirement-r4Ext = CapabilityUpdateRequirement-r4-ext    OPTIONAL
+      {5, 1}CapabilityUpdateRequirement-r4-ext = SEQUENCE
+       {3, 1}{1, 1}Val{4, 1}ue-RadioCapabilityUpdateRequirement-TDD128 = BOOLEAN
+   {3, 1}{2, 1}v770NonCriticalExtensions = SEQUENCE    OPTIONAL
+    {3, 1}{1, 1}sysInfoType13-v770ext = SysInfoType13-v770ext-IEs
+     {5, 1}SysInfoType13-v770ext-IEs = SEQUENCE
+      {3, 1}{1, 1}capabilityUpdateRequirement = CapabilityUpdateRequirement-v770ext    OPTIONAL
+       {5, 1}CapabilityUpdateRequirement-v770ext = SEQUENCE
+        {3, 1}{1, 1}Val{4, 1}ue-RadioCapabilityTDDUpdateRequirement-TDD768 = BOOLEAN
+    {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+   {0, 0}-- Extension mechanism for non- release99 information
+ {0, 0}-- Core network IEs
+ {0, 0}-- User equipment IEs
+ {0, 0}-- Extension mechanism for non- release99 information

@@ -1,0 +1,350 @@
+SysInfoTypeSB2 = SEQUENCE
+ {3, 1}{1, 1}sib-ReferenceList = SIB-ReferenceList
+  {5, 1}SIB-ReferenceList = SEQUENCE (SIZE(1..maxSIB=32)) OF
+   {4, 1}{X, 1}Field = SchedulingInformationSIB
+    {5, 1}SchedulingInformationSIB = SEQUENCE
+     {3, 1}{1, 1}sib-Type = SIB-TypeAndTag
+      {5, 1}SIB-TypeAndTag = CHOICE
+       {4, 1}(1)sysInfoType1 = PLMN-ValueTag
+        {5, 1}Val{4, 1}PLMN-ValueTag = (1..256) INTEGER flexible
+       {4, 1}(2)sysInfoType2 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(3)sysInfoType3 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(4)sysInfoType4 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(5)sysInfoType5 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(6)sysInfoType6 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(7)sysInfoType7 = NULL
+       {4, 1}(8)dummy = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(9)dummy2 = NULL
+       {4, 1}(10)dummy3 = NULL
+       {4, 1}(11)sysInfoType11 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(12)sysInfoType12 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(13)sysInfoType13 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(14)sysInfoType13-1 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(15)sysInfoType13-2 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(16)sysInfoType13-3 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(17)sysInfoType13-4 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(18)sysInfoType14 = NULL
+       {4, 1}(19)sysInfoType15 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(20)sysInfoType16 = PredefinedConfigIdentityAndValueTag
+        {5, 1}PredefinedConfigIdentityAndValueTag = SEQUENCE
+         {3, 1}{1, 1}predefinedConfigIdentity = PredefinedConfigIdentity
+          {5, 1}Val{4, 1}PredefinedConfigIdentity = (0..15) INTEGER flexible
+         {3, 1}{2, 1}predefinedConfigValueTag = PredefinedConfigValueTag
+          {5, 1}Val{4, 1}PredefinedConfigValueTag = (0..15) INTEGER flexible
+       {4, 1}(21)sysInfoType17 = NULL
+       {4, 1}(22)sysInfoType15-1 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(23)sysInfoType15-2 = SIBOccurrenceIdentityAndValueTag
+        {5, 1}SIBOccurrenceIdentityAndValueTag = SEQUENCE
+         {3, 1}{1, 1}sibOccurIdentity = SIBOccurIdentity
+          {5, 1}Val{4, 1}SIBOccurIdentity = (0..15) INTEGER flexible
+         {3, 1}{2, 1}sibOccurValueTag = SIBOccurValueTag
+          {5, 1}Val{4, 1}SIBOccurValueTag = (0..15) INTEGER flexible
+       {4, 1}(24)sysInfoType15-3 = SIBOccurrenceIdentityAndValueTag
+        {5, 1}SIBOccurrenceIdentityAndValueTag = SEQUENCE
+         {3, 1}{1, 1}sibOccurIdentity = SIBOccurIdentity
+          {5, 1}Val{4, 1}SIBOccurIdentity = (0..15) INTEGER flexible
+         {3, 1}{2, 1}sibOccurValueTag = SIBOccurValueTag
+          {5, 1}Val{4, 1}SIBOccurValueTag = (0..15) INTEGER flexible
+       {4, 1}(25)sysInfoType15-4 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(26)sysInfoType18 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(27)sysInfoType15-5 = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(28)sysInfoType5bis = CellValueTag
+        {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+       {4, 1}(29)spare4 = NULL
+       {4, 1}(30)spare3 = NULL
+       {4, 1}(31)spare2 = NULL
+       {4, 1}(32)spare1 = NULL
+       {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+       {0, 0}-- they should not be sent. If they are received the UE behaviour is not specified.
+     {3, 1}{2, 1}scheduling = SchedulingInformation
+      {5, 1}SchedulingInformation = SEQUENCE
+       {3, 1}{1, 1}scheduling = SEQUENCE
+        {3, 1}{1, 1}segCount = SegCount    DEFAULT 1 (INTEGER fixed or flexible)
+         {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+        {3, 1}{2, 1}sib-Pos = CHOICE
+         {4, 1}Val{4, 1}(1)rep4 = (0..1) INTEGER flexible
+         {4, 1}Val{4, 1}(2)rep8 = (0..3) INTEGER flexible
+         {4, 1}Val{4, 1}(3)rep16 = (0..7) INTEGER flexible
+         {4, 1}Val{4, 1}(4)rep32 = (0..15) INTEGER flexible
+         {4, 1}Val{4, 1}(5)rep64 = (0..31) INTEGER flexible
+         {4, 1}Val{4, 1}(6)rep128 = (0..63) INTEGER flexible
+         {4, 1}Val{4, 1}(7)rep256 = (0..127) INTEGER flexible
+         {4, 1}Val{4, 1}(8)rep512 = (0..255) INTEGER flexible
+         {4, 1}Val{4, 1}(9)rep1024 = (0..511) INTEGER flexible
+         {4, 1}Val{4, 1}(10)rep2048 = (0..1023) INTEGER flexible
+         {4, 1}Val{4, 1}(11)rep4096 = (0..2047) INTEGER flexible
+         {0, 0}-- The element name indicates the repetition period and the value
+         {0, 0}-- (multiplied by two) indicates the position of the first segment.
+        {3, 1}{3, 1}sib-PosOffsetInfo = SibOFF-List    OPTIONAL
+         {5, 1}SibOFF-List = SEQUENCE (SIZE(1..15)) OF
+          {4, 1}{X, 1}Field = SibOFF
+           {5, 1}SibOFF = ENUMERATED
+            Name{4, 1}so2
+            Name{4, 1}so4
+            Name{4, 1}so6
+            Name{4, 1}so8
+            Name{4, 1}so10
+            Name{4, 1}so12
+            Name{4, 1}so14
+            Name{4, 1}so16
+            Name{4, 1}so18
+            Name{4, 1}so20
+            Name{4, 1}so22
+            Name{4, 1}so24
+            Name{4, 1}so26
+            Name{4, 1}so28
+            Name{4, 1}so30
+            Name{4, 1}so32
+ {3, 1}{2, 1}v6b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+  {3, 1}{1, 1}sysInfoTypeSB2-v6b0ext = SysInfoTypeSB2-v6b0ext
+   {5, 1}SysInfoTypeSB2-v6b0ext = SEQUENCE
+    {3, 1}{1, 1}extSIBTypeInfoSchedulingInfo-List = ExtSIBTypeInfoSchedulingInfo-List    OPTIONAL
+     {5, 1}ExtSIBTypeInfoSchedulingInfo-List = SEQUENCE (SIZE(1..maxSIB=32)) OF
+      {0, 0}-- For each extended SIB type the value tag information is added at the end
+      {4, 1}{X, 1}Field = ExtSIBTypeInfoSchedulingInfo
+       {5, 1}ExtSIBTypeInfoSchedulingInfo = SEQUENCE
+        {3, 1}{1, 1}extensionSIB-Type = SIB-TypeExt
+         {5, 1}SIB-TypeExt = CHOICE
+          {4, 1}(1)systemInfoType11bis = NULL
+          {4, 1}(2)systemInfoType15bis = NULL
+          {4, 1}(3)systemInfoType15-1bis = NULL
+          {4, 1}(4)systemInfoType15-2bis = NULL
+          {4, 1}(5)systemInfoType15-3bis = NULL
+          {4, 1}(6)systemInfoType15-6 = NULL
+          {4, 1}(7)systemInfoType15-7 = NULL
+          {4, 1}(8)systemInfoType15-8 = NULL
+        {3, 1}{2, 1}schedulingInfo = SchedulingInformation
+         {5, 1}SchedulingInformation = SEQUENCE
+          {3, 1}{1, 1}scheduling = SEQUENCE
+           {3, 1}{1, 1}segCount = SegCount    DEFAULT 1 (INTEGER fixed or flexible)
+            {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+           {3, 1}{2, 1}sib-Pos = CHOICE
+            {4, 1}Val{4, 1}(1)rep4 = (0..1) INTEGER flexible
+            {4, 1}Val{4, 1}(2)rep8 = (0..3) INTEGER flexible
+            {4, 1}Val{4, 1}(3)rep16 = (0..7) INTEGER flexible
+            {4, 1}Val{4, 1}(4)rep32 = (0..15) INTEGER flexible
+            {4, 1}Val{4, 1}(5)rep64 = (0..31) INTEGER flexible
+            {4, 1}Val{4, 1}(6)rep128 = (0..63) INTEGER flexible
+            {4, 1}Val{4, 1}(7)rep256 = (0..127) INTEGER flexible
+            {4, 1}Val{4, 1}(8)rep512 = (0..255) INTEGER flexible
+            {4, 1}Val{4, 1}(9)rep1024 = (0..511) INTEGER flexible
+            {4, 1}Val{4, 1}(10)rep2048 = (0..1023) INTEGER flexible
+            {4, 1}Val{4, 1}(11)rep4096 = (0..2047) INTEGER flexible
+            {0, 0}-- The element name indicates the repetition period and the value
+            {0, 0}-- (multiplied by two) indicates the position of the first segment.
+           {3, 1}{3, 1}sib-PosOffsetInfo = SibOFF-List    OPTIONAL
+            {5, 1}SibOFF-List = SEQUENCE (SIZE(1..15)) OF
+             {4, 1}{X, 1}Field = SibOFF
+              {5, 1}SibOFF = ENUMERATED
+               Name{4, 1}so2
+               Name{4, 1}so4
+               Name{4, 1}so6
+               Name{4, 1}so8
+               Name{4, 1}so10
+               Name{4, 1}so12
+               Name{4, 1}so14
+               Name{4, 1}so16
+               Name{4, 1}so18
+               Name{4, 1}so20
+               Name{4, 1}so22
+               Name{4, 1}so24
+               Name{4, 1}so26
+               Name{4, 1}so28
+               Name{4, 1}so30
+               Name{4, 1}so32
+        {3, 1}{3, 1}valueTagInfo = ValueTagInfo
+         {5, 1}ValueTagInfo = CHOICE
+          {4, 1}(1)none = NULL
+          {4, 1}(2)cellValueTag = CellValueTag
+           {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+          {4, 1}(3)plmn-ValueTag = PLMN-ValueTag
+           {5, 1}Val{4, 1}PLMN-ValueTag = (1..256) INTEGER flexible
+          {4, 1}(4)sIBOccurrenceIdentityAndValueTag = SIBOccurrenceIdentityAndValueTag
+           {5, 1}SIBOccurrenceIdentityAndValueTag = SEQUENCE
+            {3, 1}{1, 1}sibOccurIdentity = SIBOccurIdentity
+             {5, 1}Val{4, 1}SIBOccurIdentity = (0..15) INTEGER flexible
+            {3, 1}{2, 1}sibOccurValueTag = SIBOccurValueTag
+             {5, 1}Val{4, 1}SIBOccurValueTag = (0..15) INTEGER flexible
+          {0, 0}-- For systemInformationBlockType11bis the Value Tag Info "CellValueTag" is used
+  {3, 1}{2, 1}v860NonCriticalExtensions = SEQUENCE    OPTIONAL
+   {3, 1}{1, 1}sysInfoTypeSB2-v860ext = SysInfoTypeSB2-v860ext
+    {5, 1}SysInfoTypeSB2-v860ext = SEQUENCE
+     {3, 1}{1, 1}extSIBTypeInfoSchedulingInfo-List = ExtSIBTypeInfoSchedulingInfo-List2    OPTIONAL
+      {5, 1}ExtSIBTypeInfoSchedulingInfo-List2 = SEQUENCE (SIZE(1..maxSIB=32)) OF
+       {0, 0}-- For each extended SIB type the value tag information is added at the end
+       {4, 1}{X, 1}Field = ExtSIBTypeInfoSchedulingInfo2
+        {5, 1}ExtSIBTypeInfoSchedulingInfo2 = SEQUENCE
+         {3, 1}{1, 1}extensionSIB-Type2 = SIB-TypeExt2
+          {5, 1}SIB-TypeExt2 = CHOICE
+           {4, 1}(1)systemInfoType19 = NULL
+           {4, 1}(2)systemInfoType15-2ter = NULL
+           {4, 1}(3)systemInfoType20 = NULL
+           {4, 1}(4)spare5 = NULL
+           {4, 1}(5)spare4 = NULL
+           {4, 1}(6)spare3 = NULL
+           {4, 1}(7)spare2 = NULL
+           {4, 1}(8)spare1 = NULL
+         {3, 1}{2, 1}schedulingInfo = SchedulingInformation
+          {5, 1}SchedulingInformation = SEQUENCE
+           {3, 1}{1, 1}scheduling = SEQUENCE
+            {3, 1}{1, 1}segCount = SegCount    DEFAULT 1 (INTEGER fixed or flexible)
+             {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+            {3, 1}{2, 1}sib-Pos = CHOICE
+             {4, 1}Val{4, 1}(1)rep4 = (0..1) INTEGER flexible
+             {4, 1}Val{4, 1}(2)rep8 = (0..3) INTEGER flexible
+             {4, 1}Val{4, 1}(3)rep16 = (0..7) INTEGER flexible
+             {4, 1}Val{4, 1}(4)rep32 = (0..15) INTEGER flexible
+             {4, 1}Val{4, 1}(5)rep64 = (0..31) INTEGER flexible
+             {4, 1}Val{4, 1}(6)rep128 = (0..63) INTEGER flexible
+             {4, 1}Val{4, 1}(7)rep256 = (0..127) INTEGER flexible
+             {4, 1}Val{4, 1}(8)rep512 = (0..255) INTEGER flexible
+             {4, 1}Val{4, 1}(9)rep1024 = (0..511) INTEGER flexible
+             {4, 1}Val{4, 1}(10)rep2048 = (0..1023) INTEGER flexible
+             {4, 1}Val{4, 1}(11)rep4096 = (0..2047) INTEGER flexible
+             {0, 0}-- The element name indicates the repetition period and the value
+             {0, 0}-- (multiplied by two) indicates the position of the first segment.
+            {3, 1}{3, 1}sib-PosOffsetInfo = SibOFF-List    OPTIONAL
+             {5, 1}SibOFF-List = SEQUENCE (SIZE(1..15)) OF
+              {4, 1}{X, 1}Field = SibOFF
+               {5, 1}SibOFF = ENUMERATED
+                Name{4, 1}so2
+                Name{4, 1}so4
+                Name{4, 1}so6
+                Name{4, 1}so8
+                Name{4, 1}so10
+                Name{4, 1}so12
+                Name{4, 1}so14
+                Name{4, 1}so16
+                Name{4, 1}so18
+                Name{4, 1}so20
+                Name{4, 1}so22
+                Name{4, 1}so24
+                Name{4, 1}so26
+                Name{4, 1}so28
+                Name{4, 1}so30
+                Name{4, 1}so32
+         {3, 1}{3, 1}valueTagInfo = ValueTagInfo
+          {5, 1}ValueTagInfo = CHOICE
+           {4, 1}(1)none = NULL
+           {4, 1}(2)cellValueTag = CellValueTag
+            {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+           {4, 1}(3)plmn-ValueTag = PLMN-ValueTag
+            {5, 1}Val{4, 1}PLMN-ValueTag = (1..256) INTEGER flexible
+           {4, 1}(4)sIBOccurrenceIdentityAndValueTag = SIBOccurrenceIdentityAndValueTag
+            {5, 1}SIBOccurrenceIdentityAndValueTag = SEQUENCE
+             {3, 1}{1, 1}sibOccurIdentity = SIBOccurIdentity
+              {5, 1}Val{4, 1}SIBOccurIdentity = (0..15) INTEGER flexible
+             {3, 1}{2, 1}sibOccurValueTag = SIBOccurValueTag
+              {5, 1}Val{4, 1}SIBOccurValueTag = (0..15) INTEGER flexible
+           {0, 0}-- For systemInformationBlockType11bis the Value Tag Info "CellValueTag" is used
+     {3, 1}{2, 1}extGANSS-SIBTypeInfoSchedulingInfoList = ExtGANSS-SIBTypeInfoSchedulingInfoList    OPTIONAL
+      {5, 1}ExtGANSS-SIBTypeInfoSchedulingInfoList = SEQUENCE (SIZE(1..maxGANSS=8)) OF
+       {0, 0}-- For each extended GANSS SIB type the value tag information is added at the end
+       {4, 1}{X, 1}Field = ExtGANSS-SIBTypeInfoSchedulingInfo
+        {5, 1}ExtGANSS-SIBTypeInfoSchedulingInfo = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}ganssID = (0..7) INTEGER flexible    OPTIONAL
+         {3, 1}{2, 1}sbasID = UE-Positioning-GANSS-SBAS-ID    OPTIONAL
+          {5, 1}UE-Positioning-GANSS-SBAS-ID = ENUMERATED
+           Name{4, 1}waas
+           Name{4, 1}egnos
+           Name{4, 1}msas
+           Name{4, 1}gagan
+           Name{4, 1}spare4
+           Name{4, 1}spare3
+           Name{4, 1}spare2
+           Name{4, 1}spare1
+         {3, 1}{3, 1}ganssScheduling = SEQUENCE (SIZE(1..maxSIB=32)) OF
+          {4, 1}{X, 1}Field = ExtGANSS-SchedulingInfo
+           {5, 1}ExtGANSS-SchedulingInfo = SEQUENCE
+            {3, 1}{1, 1}extensionGANSS-SIBType = SIB-TypeExtGANSS
+             {5, 1}SIB-TypeExtGANSS = CHOICE
+              {4, 1}(1)systemInfoType15-1bis = NULL
+              {4, 1}(2)systemInfoType15-2bis = NULL
+              {4, 1}(3)systemInfoType15-2ter = NULL
+              {4, 1}(4)systemInfoType15-3bis = NULL
+              {4, 1}(5)systemInfoType15-6 = NULL
+              {4, 1}(6)systemInfoType15-7 = NULL
+              {4, 1}(7)systemInfoType15-8 = NULL
+              {4, 1}(8)spare9 = NULL
+              {4, 1}(9)spare8 = NULL
+              {4, 1}(10)spare7 = NULL
+              {4, 1}(11)spare6 = NULL
+              {4, 1}(12)spare5 = NULL
+              {4, 1}(13)spare4 = NULL
+              {4, 1}(14)spare3 = NULL
+              {4, 1}(15)spare2 = NULL
+              {4, 1}(16)spare1 = NULL
+            {3, 1}{2, 1}schedulingInfo = SchedulingInformation
+             {5, 1}SchedulingInformation = SEQUENCE
+              {3, 1}{1, 1}scheduling = SEQUENCE
+               {3, 1}{1, 1}segCount = SegCount    DEFAULT 1 (INTEGER fixed or flexible)
+                {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+               {3, 1}{2, 1}sib-Pos = CHOICE
+                {4, 1}Val{4, 1}(1)rep4 = (0..1) INTEGER flexible
+                {4, 1}Val{4, 1}(2)rep8 = (0..3) INTEGER flexible
+                {4, 1}Val{4, 1}(3)rep16 = (0..7) INTEGER flexible
+                {4, 1}Val{4, 1}(4)rep32 = (0..15) INTEGER flexible
+                {4, 1}Val{4, 1}(5)rep64 = (0..31) INTEGER flexible
+                {4, 1}Val{4, 1}(6)rep128 = (0..63) INTEGER flexible
+                {4, 1}Val{4, 1}(7)rep256 = (0..127) INTEGER flexible
+                {4, 1}Val{4, 1}(8)rep512 = (0..255) INTEGER flexible
+                {4, 1}Val{4, 1}(9)rep1024 = (0..511) INTEGER flexible
+                {4, 1}Val{4, 1}(10)rep2048 = (0..1023) INTEGER flexible
+                {4, 1}Val{4, 1}(11)rep4096 = (0..2047) INTEGER flexible
+                {0, 0}-- The element name indicates the repetition period and the value
+                {0, 0}-- (multiplied by two) indicates the position of the first segment.
+               {3, 1}{3, 1}sib-PosOffsetInfo = SibOFF-List    OPTIONAL
+                {5, 1}SibOFF-List = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = SibOFF
+                  {5, 1}SibOFF = ENUMERATED
+                   Name{4, 1}so2
+                   Name{4, 1}so4
+                   Name{4, 1}so6
+                   Name{4, 1}so8
+                   Name{4, 1}so10
+                   Name{4, 1}so12
+                   Name{4, 1}so14
+                   Name{4, 1}so16
+                   Name{4, 1}so18
+                   Name{4, 1}so20
+                   Name{4, 1}so22
+                   Name{4, 1}so24
+                   Name{4, 1}so26
+                   Name{4, 1}so28
+                   Name{4, 1}so30
+                   Name{4, 1}so32
+            {3, 1}{3, 1}valueTagInfo = ValueTagInfo
+             {5, 1}ValueTagInfo = CHOICE
+              {4, 1}(1)none = NULL
+              {4, 1}(2)cellValueTag = CellValueTag
+               {5, 1}Val{4, 1}CellValueTag = (1..4) INTEGER flexible
+              {4, 1}(3)plmn-ValueTag = PLMN-ValueTag
+               {5, 1}Val{4, 1}PLMN-ValueTag = (1..256) INTEGER flexible
+              {4, 1}(4)sIBOccurrenceIdentityAndValueTag = SIBOccurrenceIdentityAndValueTag
+               {5, 1}SIBOccurrenceIdentityAndValueTag = SEQUENCE
+                {3, 1}{1, 1}sibOccurIdentity = SIBOccurIdentity
+                 {5, 1}Val{4, 1}SIBOccurIdentity = (0..15) INTEGER flexible
+                {3, 1}{2, 1}sibOccurValueTag = SIBOccurValueTag
+                 {5, 1}Val{4, 1}SIBOccurValueTag = (0..15) INTEGER flexible
+              {0, 0}-- For systemInformationBlockType11bis the Value Tag Info "CellValueTag" is used
+   {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- Other IEs
+ {0, 0}-- Extension mechanism for non- release99 information

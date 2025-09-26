@@ -1,0 +1,2292 @@
+SysInfoType8 = SEQUENCE
+ {3, 1}{1, 1}dummy1 = CPCH-Parameters
+  {5, 1}CPCH-Parameters = SEQUENCE
+   {3, 1}{1, 1}initialPriorityDelayList = InitialPriorityDelayList    OPTIONAL
+    {5, 1}InitialPriorityDelayList = SEQUENCE (SIZE(1..maxASC=8)) OF
+     {4, 1}{X, 1}Field = NS-IP
+      {5, 1}Val{4, 1}NS-IP = (0..28) INTEGER flexible
+   {3, 1}{2, 1}backoffControlParams = BackoffControlParams
+    {5, 1}BackoffControlParams = SEQUENCE
+     {3, 1}{1, 1}n-AP-RetransMax = N-AP-RetransMax
+      {5, 1}Val{4, 1}N-AP-RetransMax = (1..64) INTEGER flexible
+     {3, 1}{2, 1}n-AccessFails = N-AccessFails
+      {5, 1}Val{4, 1}N-AccessFails = (1..64) INTEGER flexible
+     {3, 1}{3, 1}nf-BO-NoAICH = NF-BO-NoAICH
+      {5, 1}Val{4, 1}NF-BO-NoAICH = (0..31) INTEGER flexible
+     {3, 1}{4, 1}ns-BO-Busy = NS-BO-Busy
+      {5, 1}Val{4, 1}NS-BO-Busy = (0..63) INTEGER flexible
+     {3, 1}{5, 1}nf-BO-AllBusy = NF-BO-AllBusy
+      {5, 1}Val{4, 1}NF-BO-AllBusy = (0..31) INTEGER flexible
+     {3, 1}{6, 1}nf-BO-Mismatch = NF-BO-Mismatch
+      {5, 1}Val{4, 1}NF-BO-Mismatch = (0..127) INTEGER flexible
+     {3, 1}{7, 1}t-CPCH = T-CPCH
+      {5, 1}T-CPCH = ENUMERATED
+       Name{4, 1}ct0
+       Name{4, 1}ct1
+   {3, 1}{3, 1}powerControlAlgorithm = PowerControlAlgorithm
+    {5, 1}PowerControlAlgorithm = CHOICE
+     {4, 1}(1)algorithm1 = TPC-StepSizeFDD
+      {5, 1}Val{4, 1}TPC-StepSizeFDD = (0..1) INTEGER flexible
+       {0, 0}-- Actual value TPC-StepSizeFDD = IE value + 1
+     {4, 1}(2)algorithm2 = NULL
+   {3, 1}{4, 1}dl-DPCCH-BER = DL-DPCCH-BER
+    {5, 1}Val{4, 1}DL-DPCCH-BER = (0..63) INTEGER flexible
+   {0, 0}-- TABULAR: TPC step size nested inside PowerControlAlgorithm
+ {3, 1}{2, 1}dummy2 = CPCH-SetInfoList
+  {5, 1}CPCH-SetInfoList = SEQUENCE (SIZE(1..maxCPCHsets=16)) OF
+   {4, 1}{X, 1}Field = CPCH-SetInfo
+    {5, 1}CPCH-SetInfo = SEQUENCE
+     {3, 1}{1, 1}cpch-SetID = CPCH-SetID
+      {5, 1}Val{4, 1}CPCH-SetID = (1..maxCPCHsets=16) INTEGER flexible
+     {3, 1}{2, 1}transportFormatSet = TransportFormatSet
+      {5, 1}TransportFormatSet = CHOICE
+       {4, 1}(1)dedicatedTransChTFS = DedicatedTransChTFS
+        {5, 1}DedicatedTransChTFS = SEQUENCE
+         {3, 1}{1, 1}tti = CHOICE
+          {4, 1}(1)tti10 = DedicatedDynamicTF-InfoList
+           {5, 1}DedicatedDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = DedicatedDynamicTF-Info
+             {5, 1}DedicatedDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)bitMode = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(2)tti20 = DedicatedDynamicTF-InfoList
+           {5, 1}DedicatedDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = DedicatedDynamicTF-Info
+             {5, 1}DedicatedDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)bitMode = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(3)tti40 = DedicatedDynamicTF-InfoList
+           {5, 1}DedicatedDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = DedicatedDynamicTF-Info
+             {5, 1}DedicatedDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)bitMode = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(4)tti80 = DedicatedDynamicTF-InfoList
+           {5, 1}DedicatedDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = DedicatedDynamicTF-Info
+             {5, 1}DedicatedDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)bitMode = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(5)dynamic = DedicatedDynamicTF-InfoList-DynamicTTI
+           {5, 1}DedicatedDynamicTF-InfoList-DynamicTTI = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = DedicatedDynamicTF-Info-DynamicTTI
+             {5, 1}DedicatedDynamicTF-Info-DynamicTTI = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)bitMode = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeAndTTIList = NumberOfTbSizeAndTTIList
+               {5, 1}NumberOfTbSizeAndTTIList = SEQUENCE (SIZE(1..maxTF=32)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}numberOfTransportBlocks = NumberOfTransportBlocks
+                  {5, 1}NumberOfTransportBlocks = CHOICE
+                   {4, 1}(1)zero = NULL
+                   {4, 1}(2)one = NULL
+                   {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                   {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+                 {3, 1}{2, 1}transmissionTimeInterval = TransmissionTimeInterval
+                  {5, 1}TransmissionTimeInterval = ENUMERATED
+                   Name{4, 1}tti10
+                   Name{4, 1}tti20
+                   Name{4, 1}tti40
+                   Name{4, 1}tti80
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+         {3, 1}{2, 1}semistaticTF-Information = SemistaticTF-Information
+          {5, 1}SemistaticTF-Information = SEQUENCE
+           {3, 1}{1, 1}channelCodingType = ChannelCodingType
+            {5, 1}ChannelCodingType = CHOICE
+             {4, 1}(1)noCoding = NULL
+             {4, 1}(2)convolutional = CodingRate
+              {5, 1}CodingRate = ENUMERATED
+               Name{4, 1}half
+               Name{4, 1}third
+             {4, 1}(3)turbo = NULL
+             {0, 0}-- noCoding is only used for TDD in this version of the specification,
+             {0, 0}-- otherwise it should be ignored
+           {3, 1}{2, 1}rateMatchingAttribute = RateMatchingAttribute
+            {5, 1}Val{4, 1}RateMatchingAttribute = (1..hiRM=256) INTEGER flexible
+           {3, 1}{3, 1}crc-Size = CRC-Size
+            {5, 1}CRC-Size = ENUMERATED
+             Name{4, 1}crc0
+             Name{4, 1}crc8
+             Name{4, 1}crc12
+             Name{4, 1}crc16
+             Name{4, 1}crc24
+           {0, 0}-- TABULAR: Transmission time interval has been included in the IE CommonTransChTFS.
+       {4, 1}(2)commonTransChTFS = CommonTransChTFS
+        {5, 1}CommonTransChTFS = SEQUENCE
+         {3, 1}{1, 1}tti = CHOICE
+          {4, 1}(1)tti10 = CommonDynamicTF-InfoList
+           {5, 1}CommonDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = CommonDynamicTF-Info
+             {5, 1}CommonDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)fdd = SEQUENCE
+                {3, 1}{1, 1}octetModeRLC-SizeInfoType2 = OctetModeRLC-SizeInfoType2
+                 {5, 1}OctetModeRLC-SizeInfoType2 = CHOICE
+                  {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                  {4, 1}Val{4, 1}(2)sizeType2 = (0..63) INTEGER flexible
+                  {4, 1}Val{4, 1}(3)sizeType3 = (0..56) INTEGER flexible
+                  {0, 0}-- Actual size = (sizeType1 * 8) + 48
+                  {0, 0}-- Actual size = (sizeType2 * 16) + 312
+                  {0, 0}-- Actual size = (sizeType3 *64) + 1384
+               {4, 1}(2)tdd = SEQUENCE
+                {3, 1}{1, 1}commonTDD-Choice = CHOICE
+                 {4, 1}(1)bitModeRLC-SizeInfo = BitModeRLC-SizeInfo
+                  {5, 1}BitModeRLC-SizeInfo = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                   {4, 1}(4)sizeType4 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                   {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                   {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                   {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+                 {4, 1}(2)octetModeRLC-SizeInfoType1 = OctetModeRLC-SizeInfoType1
+                  {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                   {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(2)tti20 = CommonDynamicTF-InfoList
+           {5, 1}CommonDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = CommonDynamicTF-Info
+             {5, 1}CommonDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)fdd = SEQUENCE
+                {3, 1}{1, 1}octetModeRLC-SizeInfoType2 = OctetModeRLC-SizeInfoType2
+                 {5, 1}OctetModeRLC-SizeInfoType2 = CHOICE
+                  {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                  {4, 1}Val{4, 1}(2)sizeType2 = (0..63) INTEGER flexible
+                  {4, 1}Val{4, 1}(3)sizeType3 = (0..56) INTEGER flexible
+                  {0, 0}-- Actual size = (sizeType1 * 8) + 48
+                  {0, 0}-- Actual size = (sizeType2 * 16) + 312
+                  {0, 0}-- Actual size = (sizeType3 *64) + 1384
+               {4, 1}(2)tdd = SEQUENCE
+                {3, 1}{1, 1}commonTDD-Choice = CHOICE
+                 {4, 1}(1)bitModeRLC-SizeInfo = BitModeRLC-SizeInfo
+                  {5, 1}BitModeRLC-SizeInfo = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                   {4, 1}(4)sizeType4 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                   {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                   {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                   {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+                 {4, 1}(2)octetModeRLC-SizeInfoType1 = OctetModeRLC-SizeInfoType1
+                  {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                   {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(3)tti40 = CommonDynamicTF-InfoList
+           {5, 1}CommonDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = CommonDynamicTF-Info
+             {5, 1}CommonDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)fdd = SEQUENCE
+                {3, 1}{1, 1}octetModeRLC-SizeInfoType2 = OctetModeRLC-SizeInfoType2
+                 {5, 1}OctetModeRLC-SizeInfoType2 = CHOICE
+                  {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                  {4, 1}Val{4, 1}(2)sizeType2 = (0..63) INTEGER flexible
+                  {4, 1}Val{4, 1}(3)sizeType3 = (0..56) INTEGER flexible
+                  {0, 0}-- Actual size = (sizeType1 * 8) + 48
+                  {0, 0}-- Actual size = (sizeType2 * 16) + 312
+                  {0, 0}-- Actual size = (sizeType3 *64) + 1384
+               {4, 1}(2)tdd = SEQUENCE
+                {3, 1}{1, 1}commonTDD-Choice = CHOICE
+                 {4, 1}(1)bitModeRLC-SizeInfo = BitModeRLC-SizeInfo
+                  {5, 1}BitModeRLC-SizeInfo = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                   {4, 1}(4)sizeType4 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                   {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                   {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                   {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+                 {4, 1}(2)octetModeRLC-SizeInfoType1 = OctetModeRLC-SizeInfoType1
+                  {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                   {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(4)tti80 = CommonDynamicTF-InfoList
+           {5, 1}CommonDynamicTF-InfoList = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = CommonDynamicTF-Info
+             {5, 1}CommonDynamicTF-Info = SEQUENCE
+              {3, 1}{1, 1}rlc-Size = CHOICE
+               {4, 1}(1)fdd = SEQUENCE
+                {3, 1}{1, 1}octetModeRLC-SizeInfoType2 = OctetModeRLC-SizeInfoType2
+                 {5, 1}OctetModeRLC-SizeInfoType2 = CHOICE
+                  {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                  {4, 1}Val{4, 1}(2)sizeType2 = (0..63) INTEGER flexible
+                  {4, 1}Val{4, 1}(3)sizeType3 = (0..56) INTEGER flexible
+                  {0, 0}-- Actual size = (sizeType1 * 8) + 48
+                  {0, 0}-- Actual size = (sizeType2 * 16) + 312
+                  {0, 0}-- Actual size = (sizeType3 *64) + 1384
+               {4, 1}(2)tdd = SEQUENCE
+                {3, 1}{1, 1}commonTDD-Choice = CHOICE
+                 {4, 1}(1)bitModeRLC-SizeInfo = BitModeRLC-SizeInfo
+                  {5, 1}BitModeRLC-SizeInfo = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                   {4, 1}(4)sizeType4 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                   {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                   {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                   {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+                 {4, 1}(2)octetModeRLC-SizeInfoType1 = OctetModeRLC-SizeInfoType1
+                  {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                   {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                   {4, 1}(2)sizeType2 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                   {4, 1}(3)sizeType3 = SEQUENCE
+                    {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                    {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                    {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                   {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeList = SEQUENCE (SIZE(1..maxTF=32)) OF
+               {4, 1}{X, 1}Field = NumberOfTransportBlocks
+                {5, 1}NumberOfTransportBlocks = CHOICE
+                 {4, 1}(1)zero = NULL
+                 {4, 1}(2)one = NULL
+                 {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+          {4, 1}(5)dynamic = CommonDynamicTF-InfoList-DynamicTTI
+           {5, 1}CommonDynamicTF-InfoList-DynamicTTI = SEQUENCE (SIZE(1..maxTF=32)) OF
+            {4, 1}{X, 1}Field = CommonDynamicTF-Info-DynamicTTI
+             {5, 1}CommonDynamicTF-Info-DynamicTTI = SEQUENCE
+              {3, 1}{1, 1}commonTDD-Choice = CHOICE
+               {4, 1}(1)bitModeRLC-SizeInfo = BitModeRLC-SizeInfo
+                {5, 1}BitModeRLC-SizeInfo = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..127) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..47) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..15) INTEGER flexible    OPTIONAL
+                 {4, 1}(4)sizeType4 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..62) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..63) INTEGER flexible    OPTIONAL
+                 {0, 0}-- Actual value sizeType2 = (part1 * 8) + 128 + part2
+                 {0, 0}-- Actual value sizeType3 = (part1 * 16) + 256 + part2
+                 {0, 0}-- Actual value sizeType4 = (part1 * 64) + 1024 + part2
+               {4, 1}(2)octetModeRLC-SizeInfoType1 = OctetModeRLC-SizeInfoType1
+                {5, 1}OctetModeRLC-SizeInfoType1 = CHOICE
+                 {4, 1}Val{4, 1}(1)sizeType1 = (0..31) INTEGER flexible
+                 {4, 1}(2)sizeType2 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..23) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..3) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (32 * part1) + 272 + (part2 * 8)
+                 {4, 1}(3)sizeType3 = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}part1 = (0..61) INTEGER flexible
+                  {3, 1}{2, 1}Val{4, 1}part2 = (1..7) INTEGER flexible    OPTIONAL
+                  {0, 0}-- Actual size = (64 * part1) + 1040 + (part2 * 8)
+                 {0, 0}-- Actual size = (8 * sizeType1) + 16
+              {3, 1}{2, 1}numberOfTbSizeAndTTIList = NumberOfTbSizeAndTTIList
+               {5, 1}NumberOfTbSizeAndTTIList = SEQUENCE (SIZE(1..maxTF=32)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}numberOfTransportBlocks = NumberOfTransportBlocks
+                  {5, 1}NumberOfTransportBlocks = CHOICE
+                   {4, 1}(1)zero = NULL
+                   {4, 1}(2)one = NULL
+                   {4, 1}Val{4, 1}(3)small = (2..17) INTEGER flexible
+                   {4, 1}Val{4, 1}(4)large = (18..512) INTEGER flexible
+                 {3, 1}{2, 1}transmissionTimeInterval = TransmissionTimeInterval
+                  {5, 1}TransmissionTimeInterval = ENUMERATED
+                   Name{4, 1}tti10
+                   Name{4, 1}tti20
+                   Name{4, 1}tti40
+                   Name{4, 1}tti80
+              {3, 1}{3, 1}logicalChannelList = LogicalChannelList
+               {5, 1}LogicalChannelList = CHOICE
+                {4, 1}(1)allSizes = NULL
+                {4, 1}(2)configured = NULL
+                {4, 1}(3)explicitList = SEQUENCE (SIZE(1..15)) OF
+                 {4, 1}{X, 1}Field = LogicalChannelByRB
+                  {5, 1}LogicalChannelByRB = SEQUENCE
+                   {3, 1}{1, 1}rb-Identity = RB-Identity
+                    {5, 1}Val{4, 1}RB-Identity = (1..32) INTEGER flexible
+                   {3, 1}{2, 1}Val{4, 1}logChOfRb = (0..1) INTEGER flexible    OPTIONAL
+         {3, 1}{2, 1}semistaticTF-Information = SemistaticTF-Information
+          {5, 1}SemistaticTF-Information = SEQUENCE
+           {3, 1}{1, 1}channelCodingType = ChannelCodingType
+            {5, 1}ChannelCodingType = CHOICE
+             {4, 1}(1)noCoding = NULL
+             {4, 1}(2)convolutional = CodingRate
+              {5, 1}CodingRate = ENUMERATED
+               Name{4, 1}half
+               Name{4, 1}third
+             {4, 1}(3)turbo = NULL
+             {0, 0}-- noCoding is only used for TDD in this version of the specification,
+             {0, 0}-- otherwise it should be ignored
+           {3, 1}{2, 1}rateMatchingAttribute = RateMatchingAttribute
+            {5, 1}Val{4, 1}RateMatchingAttribute = (1..hiRM=256) INTEGER flexible
+           {3, 1}{3, 1}crc-Size = CRC-Size
+            {5, 1}CRC-Size = ENUMERATED
+             Name{4, 1}crc0
+             Name{4, 1}crc8
+             Name{4, 1}crc12
+             Name{4, 1}crc16
+             Name{4, 1}crc24
+           {0, 0}-- TABULAR: Transmission time interval has been included in the IE CommonTransChTFS.
+     {3, 1}{3, 1}tfcs = TFCS
+      {5, 1}TFCS = CHOICE
+       {4, 1}(1)normalTFCI-Signalling = ExplicitTFCS-Configuration
+        {5, 1}ExplicitTFCS-Configuration = CHOICE
+         {4, 1}(1)complete = TFCS-ReconfAdd
+          {5, 1}TFCS-ReconfAdd = SEQUENCE
+           {3, 1}{1, 1}ctfcSize = CHOICE
+            {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+         {4, 1}(2)addition = TFCS-ReconfAdd
+          {5, 1}TFCS-ReconfAdd = SEQUENCE
+           {3, 1}{1, 1}ctfcSize = CHOICE
+            {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+            {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+              {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+               {5, 1}PowerOffsetInformation = SEQUENCE
+                {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                 {5, 1}GainFactorInformation = CHOICE
+                  {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                   {5, 1}SignalledGainFactors = SEQUENCE
+                    {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                     {4, 1}(1)fdd = SEQUENCE
+                      {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {4, 1}(2)tdd = NULL
+                    {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                     {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                    {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                   {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                 {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                {0, 0}-- PowerOffsetPp-m is always absent in TDD
+         {4, 1}(3)removal = TFCS-RemovalList
+          {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+           {4, 1}{X, 1}Field = TFCS-Removal
+            {5, 1}TFCS-Removal = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+         {4, 1}(4)replacement = SEQUENCE
+          {3, 1}{1, 1}tfcsRemoval = TFCS-RemovalList
+           {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+            {4, 1}{X, 1}Field = TFCS-Removal
+             {5, 1}TFCS-Removal = SEQUENCE
+              {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+          {3, 1}{2, 1}tfcsAdd = TFCS-ReconfAdd
+           {5, 1}TFCS-ReconfAdd = SEQUENCE
+            {3, 1}{1, 1}ctfcSize = CHOICE
+             {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+               {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                {5, 1}PowerOffsetInformation = SEQUENCE
+                 {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                  {5, 1}GainFactorInformation = CHOICE
+                   {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                    {5, 1}SignalledGainFactors = SEQUENCE
+                     {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                      {4, 1}(1)fdd = SEQUENCE
+                       {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {4, 1}(2)tdd = NULL
+                     {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                      {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                     {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                    {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                  {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                 {0, 0}-- PowerOffsetPp-m is always absent in TDD
+       {4, 1}(2)dummy = SplitTFCI-Signalling
+        {5, 1}SplitTFCI-Signalling = SEQUENCE
+         {3, 1}{1, 1}splitType = SplitType    OPTIONAL
+          {5, 1}SplitType = ENUMERATED
+           Name{4, 1}hardSplit
+           Name{4, 1}logicalSplit
+         {3, 1}{2, 1}Val{4, 1}tfci-Field2-Length = (1..10) INTEGER flexible    OPTIONAL
+         {3, 1}{3, 1}tfci-Field1-Information = ExplicitTFCS-Configuration    OPTIONAL
+          {5, 1}ExplicitTFCS-Configuration = CHOICE
+           {4, 1}(1)complete = TFCS-ReconfAdd
+            {5, 1}TFCS-ReconfAdd = SEQUENCE
+             {3, 1}{1, 1}ctfcSize = CHOICE
+              {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+           {4, 1}(2)addition = TFCS-ReconfAdd
+            {5, 1}TFCS-ReconfAdd = SEQUENCE
+             {3, 1}{1, 1}ctfcSize = CHOICE
+              {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+              {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                 {5, 1}PowerOffsetInformation = SEQUENCE
+                  {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                   {5, 1}GainFactorInformation = CHOICE
+                    {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                     {5, 1}SignalledGainFactors = SEQUENCE
+                      {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                       {4, 1}(1)fdd = SEQUENCE
+                        {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {4, 1}(2)tdd = NULL
+                      {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                       {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                      {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                     {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                   {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                  {0, 0}-- PowerOffsetPp-m is always absent in TDD
+           {4, 1}(3)removal = TFCS-RemovalList
+            {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+             {4, 1}{X, 1}Field = TFCS-Removal
+              {5, 1}TFCS-Removal = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+           {4, 1}(4)replacement = SEQUENCE
+            {3, 1}{1, 1}tfcsRemoval = TFCS-RemovalList
+             {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+              {4, 1}{X, 1}Field = TFCS-Removal
+               {5, 1}TFCS-Removal = SEQUENCE
+                {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+            {3, 1}{2, 1}tfcsAdd = TFCS-ReconfAdd
+             {5, 1}TFCS-ReconfAdd = SEQUENCE
+              {3, 1}{1, 1}ctfcSize = CHOICE
+               {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+               {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                 {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                  {5, 1}PowerOffsetInformation = SEQUENCE
+                   {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                    {5, 1}GainFactorInformation = CHOICE
+                     {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                      {5, 1}SignalledGainFactors = SEQUENCE
+                       {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                        {4, 1}(1)fdd = SEQUENCE
+                         {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {4, 1}(2)tdd = NULL
+                       {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                        {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                       {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                      {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                    {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                   {0, 0}-- PowerOffsetPp-m is always absent in TDD
+         {3, 1}{4, 1}tfci-Field2-Information = TFCI-Field2-Information    OPTIONAL
+          {5, 1}TFCI-Field2-Information = CHOICE
+           {4, 1}(1)tfci-Range = TFCI-RangeList
+            {5, 1}TFCI-RangeList = SEQUENCE (SIZE(1..maxPDSCH-TFCIgroups=256)) OF
+             {4, 1}{X, 1}Field = TFCI-Range
+              {5, 1}TFCI-Range = SEQUENCE
+               {3, 1}{1, 1}Val{4, 1}maxTFCIField2Value = (1..1023) INTEGER flexible
+               {3, 1}{2, 1}tfcs-InfoForDSCH = TFCS-InfoForDSCH
+                {5, 1}TFCS-InfoForDSCH = CHOICE
+                 {4, 1}Val{4, 1}(1)ctfc2bit = (0..3) INTEGER flexible
+                 {4, 1}Val{4, 1}(2)ctfc4bit = (0..15) INTEGER flexible
+                 {4, 1}Val{4, 1}(3)ctfc6bit = (0..63) INTEGER flexible
+                 {4, 1}Val{4, 1}(4)ctfc8bit = (0..255) INTEGER flexible
+                 {4, 1}Val{4, 1}(5)ctfc12bit = (0..4095) INTEGER flexible
+                 {4, 1}Val{4, 1}(6)ctfc16bit = (0..65535) INTEGER flexible
+                 {4, 1}Val{4, 1}(7)ctfc24bit = (0..16777215) INTEGER flexible
+           {4, 1}(2)explicit-config = ExplicitTFCS-Configuration
+            {5, 1}ExplicitTFCS-Configuration = CHOICE
+             {4, 1}(1)complete = TFCS-ReconfAdd
+              {5, 1}TFCS-ReconfAdd = SEQUENCE
+               {3, 1}{1, 1}ctfcSize = CHOICE
+                {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(2)addition = TFCS-ReconfAdd
+              {5, 1}TFCS-ReconfAdd = SEQUENCE
+               {3, 1}{1, 1}ctfcSize = CHOICE
+                {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                 {4, 1}{X, 1}Field = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                  {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                   {5, 1}PowerOffsetInformation = SEQUENCE
+                    {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                     {5, 1}GainFactorInformation = CHOICE
+                      {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                       {5, 1}SignalledGainFactors = SEQUENCE
+                        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                         {4, 1}(1)fdd = SEQUENCE
+                          {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                           {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {4, 1}(2)tdd = NULL
+                        {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                         {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                        {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                         {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                      {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                       {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                    {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                     {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                    {0, 0}-- PowerOffsetPp-m is always absent in TDD
+             {4, 1}(3)removal = TFCS-RemovalList
+              {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+               {4, 1}{X, 1}Field = TFCS-Removal
+                {5, 1}TFCS-Removal = SEQUENCE
+                 {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+             {4, 1}(4)replacement = SEQUENCE
+              {3, 1}{1, 1}tfcsRemoval = TFCS-RemovalList
+               {5, 1}TFCS-RemovalList = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                {4, 1}{X, 1}Field = TFCS-Removal
+                 {5, 1}TFCS-Removal = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}tfci = (0..1023) INTEGER flexible
+              {3, 1}{2, 1}tfcsAdd = TFCS-ReconfAdd
+               {5, 1}TFCS-ReconfAdd = SEQUENCE
+                {3, 1}{1, 1}ctfcSize = CHOICE
+                 {4, 1}(1)ctfc2Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc2 = (0..3) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(2)ctfc4Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc4 = (0..15) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(3)ctfc6Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc6 = (0..63) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(4)ctfc8Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc8 = (0..255) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(5)ctfc12Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc12 = (0..4095) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(6)ctfc16Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc16 = (0..65535) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+                 {4, 1}(7)ctfc24Bit = SEQUENCE (SIZE(1..maxTFC=1024)) OF
+                  {4, 1}{X, 1}Field = SEQUENCE
+                   {3, 1}{1, 1}Val{4, 1}ctfc24 = (0..16777215) INTEGER flexible
+                   {3, 1}{2, 1}powerOffsetInformation = PowerOffsetInformation    OPTIONAL
+                    {5, 1}PowerOffsetInformation = SEQUENCE
+                     {3, 1}{1, 1}gainFactorInformation = GainFactorInformation
+                      {5, 1}GainFactorInformation = CHOICE
+                       {4, 1}(1)signalledGainFactors = SignalledGainFactors
+                        {5, 1}SignalledGainFactors = SEQUENCE
+                         {3, 1}{1, 1}modeSpecificInfo = CHOICE
+                          {4, 1}(1)fdd = SEQUENCE
+                           {3, 1}{1, 1}gainFactorBetaC = GainFactor
+                            {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                          {4, 1}(2)tdd = NULL
+                         {3, 1}{2, 1}gainFactorBetaD = GainFactor
+                          {5, 1}Val{4, 1}GainFactor = (0..15) INTEGER flexible
+                         {3, 1}{3, 1}referenceTFC-ID = ReferenceTFC-ID    OPTIONAL
+                          {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                       {4, 1}(2)computedGainFactors = ReferenceTFC-ID
+                        {5, 1}Val{4, 1}ReferenceTFC-ID = (0..3) INTEGER flexible
+                     {3, 1}{2, 1}powerOffsetPp-m = PowerOffsetPp-m    OPTIONAL
+                      {5, 1}Val{4, 1}PowerOffsetPp-m = (-5..10) INTEGER flexible
+                     {0, 0}-- PowerOffsetPp-m is always absent in TDD
+       {0, 0}-- dummy is not used in this version of specification, it should
+       {0, 0}-- not be sent and if received the UE behaviour is not specified.
+     {3, 1}{4, 1}ap-PreambleScramblingCode = AP-PreambleScramblingCode
+      {5, 1}Val{4, 1}AP-PreambleScramblingCode = (0..79) INTEGER flexible
+     {3, 1}{5, 1}ap-AICH-ChannelisationCode = AP-AICH-ChannelisationCode
+      {5, 1}Val{4, 1}AP-AICH-ChannelisationCode = (0..255) INTEGER flexible
+     {3, 1}{6, 1}cd-PreambleScramblingCode = CD-PreambleScramblingCode
+      {5, 1}Val{4, 1}CD-PreambleScramblingCode = (0..79) INTEGER flexible
+     {3, 1}{7, 1}cd-CA-ICH-ChannelisationCode = CD-CA-ICH-ChannelisationCode
+      {5, 1}Val{4, 1}CD-CA-ICH-ChannelisationCode = (0..255) INTEGER flexible
+     {3, 1}{8, 1}cd-AccessSlotSubchannelList = CD-AccessSlotSubchannelList    OPTIONAL
+      {5, 1}CD-AccessSlotSubchannelList = SEQUENCE (SIZE(1..maxPCPCH-CDsubCh=12)) OF
+       {4, 1}{X, 1}Field = CD-AccessSlotSubchannel
+        {5, 1}Val{4, 1}CD-AccessSlotSubchannel = (0..11) INTEGER flexible
+     {3, 1}{9, 1}cd-SignatureCodeList = CD-SignatureCodeList    OPTIONAL
+      {5, 1}CD-SignatureCodeList = SEQUENCE (SIZE(1..maxPCPCH-CDsig=16)) OF
+       {4, 1}{X, 1}Field = CD-SignatureCode
+        {5, 1}Val{4, 1}CD-SignatureCode = (0..15) INTEGER flexible
+     {3, 1}{10, 1}deltaPp-m = DeltaPp-m
+      {5, 1}Val{4, 1}DeltaPp-m = (-10..10) INTEGER flexible
+     {3, 1}{11, 1}ul-DPCCH-SlotFormat = UL-DPCCH-SlotFormat
+      {5, 1}UL-DPCCH-SlotFormat = ENUMERATED
+       Name{4, 1}slf0
+       Name{4, 1}slf1
+       Name{4, 1}slf2
+     {3, 1}{12, 1}n-StartMessage = N-StartMessage
+      {5, 1}Val{4, 1}N-StartMessage = (1..8) INTEGER flexible
+     {3, 1}{13, 1}n-EOT = N-EOT
+      {5, 1}Val{4, 1}N-EOT = (0..7) INTEGER flexible
+     {3, 1}{14, 1}channelAssignmentActive = ChannelAssignmentActive
+      {5, 1}ChannelAssignmentActive = CHOICE
+       {4, 1}(1)notActive = NULL
+       {4, 1}(2)isActive = AvailableMinimumSF-ListVCAM
+        {5, 1}AvailableMinimumSF-ListVCAM = SEQUENCE (SIZE(1..maxPCPCH-SF=7)) OF
+         {4, 1}{X, 1}Field = AvailableMinimumSF-VCAM
+          {5, 1}AvailableMinimumSF-VCAM = SEQUENCE
+           {3, 1}{1, 1}minimumSpreadingFactor = MinimumSpreadingFactor
+            {5, 1}MinimumSpreadingFactor = ENUMERATED
+             Name{4, 1}sf4
+             Name{4, 1}sf8
+             Name{4, 1}sf16
+             Name{4, 1}sf32
+             Name{4, 1}sf64
+             Name{4, 1}sf128
+             Name{4, 1}sf256
+           {3, 1}{2, 1}nf-Max = NF-Max
+            {5, 1}Val{4, 1}NF-Max = (1..64) INTEGER flexible
+           {3, 1}{3, 1}maxAvailablePCPCH-Number = MaxAvailablePCPCH-Number
+            {5, 1}Val{4, 1}MaxAvailablePCPCH-Number = (1..64) INTEGER flexible
+           {3, 1}{4, 1}availableAP-Signature-VCAMList = AvailableAP-Signature-VCAMList
+            {5, 1}AvailableAP-Signature-VCAMList = SEQUENCE (SIZE(1..maxPCPCH-APsig=16)) OF
+             {4, 1}{X, 1}Field = AP-Signature-VCAM
+              {5, 1}AP-Signature-VCAM = SEQUENCE
+               {3, 1}{1, 1}ap-Signature = AP-Signature
+                {5, 1}Val{4, 1}AP-Signature = (0..15) INTEGER flexible
+               {3, 1}{2, 1}availableAP-SubchannelList = AvailableAP-SubchannelList    OPTIONAL
+                {5, 1}AvailableAP-SubchannelList = SEQUENCE (SIZE(1..maxPCPCH-APsubCh=12)) OF
+                 {4, 1}{X, 1}Field = AP-Subchannel
+                  {5, 1}Val{4, 1}AP-Subchannel = (0..11) INTEGER flexible
+     {3, 1}{15, 1}cpch-StatusIndicationMode = CPCH-StatusIndicationMode
+      {5, 1}CPCH-StatusIndicationMode = ENUMERATED
+       Name{4, 1}pa-mode
+       Name{4, 1}pamsf-mode
+     {3, 1}{16, 1}pcpch-ChannelInfoList = PCPCH-ChannelInfoList
+      {5, 1}PCPCH-ChannelInfoList = SEQUENCE (SIZE(1..maxPCPCHs=64)) OF
+       {4, 1}{X, 1}Field = PCPCH-ChannelInfo
+        {5, 1}PCPCH-ChannelInfo = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}pcpch-UL-ScramblingCode = (0..79) INTEGER flexible
+         {3, 1}{2, 1}Val{4, 1}pcpch-DL-ChannelisationCode = (0..511) INTEGER flexible
+         {3, 1}{3, 1}pcpch-DL-ScramblingCode = SecondaryScramblingCode    OPTIONAL
+          {5, 1}Val{4, 1}SecondaryScramblingCode = (1..15) INTEGER flexible
+         {3, 1}{4, 1}pcp-Length = PCP-Length
+          {5, 1}PCP-Length = ENUMERATED
+           Name{4, 1}as0
+           Name{4, 1}as8
+         {3, 1}{5, 1}ucsm-Info = UCSM-Info    OPTIONAL
+          {5, 1}UCSM-Info = SEQUENCE
+           {3, 1}{1, 1}minimumSpreadingFactor = MinimumSpreadingFactor
+            {5, 1}MinimumSpreadingFactor = ENUMERATED
+             Name{4, 1}sf4
+             Name{4, 1}sf8
+             Name{4, 1}sf16
+             Name{4, 1}sf32
+             Name{4, 1}sf64
+             Name{4, 1}sf128
+             Name{4, 1}sf256
+           {3, 1}{2, 1}nf-Max = NF-Max
+            {5, 1}Val{4, 1}NF-Max = (1..64) INTEGER flexible
+           {3, 1}{3, 1}channelReqParamsForUCSM = ChannelReqParamsForUCSM
+            {5, 1}ChannelReqParamsForUCSM = SEQUENCE
+             {3, 1}{1, 1}availableAP-SignatureList = AvailableAP-SignatureList
+              {5, 1}AvailableAP-SignatureList = SEQUENCE (SIZE(1..maxPCPCH-APsig=16)) OF
+               {4, 1}{X, 1}Field = AP-Signature
+                {5, 1}Val{4, 1}AP-Signature = (0..15) INTEGER flexible
+             {3, 1}{2, 1}availableAP-SubchannelList = AvailableAP-SubchannelList    OPTIONAL
+              {5, 1}AvailableAP-SubchannelList = SEQUENCE (SIZE(1..maxPCPCH-APsubCh=12)) OF
+               {4, 1}{X, 1}Field = AP-Subchannel
+                {5, 1}Val{4, 1}AP-Subchannel = (0..11) INTEGER flexible
+     {0, 0}-- TABULAR: VCAM info has been nested inside ChannelAssignmentActive,
+     {0, 0}-- which in turn is mandatory since it's only a binary choice.
+ {3, 1}{3, 1}dummy3 = CSICH-PowerOffset
+  {5, 1}Val{4, 1}CSICH-PowerOffset = (-10..5) INTEGER flexible
+ {3, 1}{4, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- This IE is not used in this version of the specification.
+ {0, 0}-- It was kept only for backwards compatibility reasons
+ {0, 0}-- User equipment IEs
+ {0, 0}-- dummy1, dummy2, dummy3 are not used in this version of the specification and
+ {0, 0}-- they should be ignored by the receiver.
+ {0, 0}-- Physical channel IEs
+ {0, 0}-- Extension mechanism for non- release99 information

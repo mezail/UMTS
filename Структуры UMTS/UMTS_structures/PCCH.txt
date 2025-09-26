@@ -1,0 +1,196 @@
+PCCH-Message = SEQUENCE
+ {3, 1}{1, 1}message = PCCH-MessageType
+  {5, 1}PCCH-MessageType = CHOICE
+   {4, 1}(1)pagingType1 = PagingType1
+    {5, 1}PagingType1 = SEQUENCE
+     {3, 1}{1, 1}pagingRecordList = PagingRecordList    OPTIONAL
+      {5, 1}PagingRecordList = SEQUENCE (SIZE(1..maxPage1=8)) OF
+       {4, 1}{X, 1}Field = PagingRecord
+        {5, 1}PagingRecord = CHOICE
+         {4, 1}(1)cn-Identity = SEQUENCE
+          {3, 1}{1, 1}pagingCause = PagingCause
+           {5, 1}PagingCause = ENUMERATED
+            Name{4, 1}terminatingConversationalCall
+            Name{4, 1}terminatingStreamingCall
+            Name{4, 1}terminatingInteractiveCall
+            Name{4, 1}terminatingBackgroundCall
+            Name{4, 1}terminatingHighPrioritySignalling
+            Name{4, 1}terminatingLowPrioritySignalling
+            Name{4, 1}terminatingCauseUnknown
+            Name{4, 1}spare
+          {3, 1}{2, 1}cn-DomainIdentity = CN-DomainIdentity
+           {5, 1}CN-DomainIdentity = ENUMERATED
+            Name{4, 1}cs-domain
+            Name{4, 1}ps-domain
+          {3, 1}{3, 1}cn-pagedUE-Identity = CN-PagedUE-Identity
+           {5, 1}CN-PagedUE-Identity = CHOICE
+            {4, 1}(1)imsi-GSM-MAP = IMSI-GSM-MAP
+             {5, 1}IMSI-GSM-MAP = SEQUENCE (SIZE(6..21)) OF
+              {4, 1}{X, 1}Field = Digit
+               {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+            {4, 1}(2)tmsi-GSM-MAP = TMSI-GSM-MAP
+             {5, 1}Bits{4, 1}TMSI-GSM-MAP = BIT STRING (SIZE(32))
+            {4, 1}(3)p-TMSI-GSM-MAP = P-TMSI-GSM-MAP
+             {5, 1}Bits{4, 1}P-TMSI-GSM-MAP = BIT STRING (SIZE(32))
+            {4, 1}(4)imsi-DS-41 = IMSI-DS-41
+             {5, 1}Val{4, 1}{X, 1}IMSI-DS-41 = OCTET STRING (SIZE(5..7))
+            {4, 1}(5)tmsi-DS-41 = TMSI-DS-41
+             {5, 1}Val{4, 1}{X, 1}TMSI-DS-41 = OCTET STRING (SIZE(2..17))
+            {4, 1}(6)spare3 = NULL
+            {4, 1}(7)spare2 = NULL
+            {4, 1}(8)spare1 = NULL
+         {4, 1}(2)utran-Identity = SEQUENCE
+          {3, 1}{1, 1}u-RNTI = U-RNTI
+           {5, 1}U-RNTI = SEQUENCE
+            {3, 1}{1, 1}srnc-Identity = SRNC-Identity
+             {5, 1}Bits{4, 1}SRNC-Identity = BIT STRING (SIZE(12))
+            {3, 1}{2, 1}s-RNTI = S-RNTI
+             {5, 1}Bits{4, 1}S-RNTI = BIT STRING (SIZE(20))
+          {3, 1}{2, 1}cn-OriginatedPage-connectedMode-UE = SEQUENCE    OPTIONAL
+           {3, 1}{1, 1}pagingCause = PagingCause
+            {5, 1}PagingCause = ENUMERATED
+             Name{4, 1}terminatingConversationalCall
+             Name{4, 1}terminatingStreamingCall
+             Name{4, 1}terminatingInteractiveCall
+             Name{4, 1}terminatingBackgroundCall
+             Name{4, 1}terminatingHighPrioritySignalling
+             Name{4, 1}terminatingLowPrioritySignalling
+             Name{4, 1}terminatingCauseUnknown
+             Name{4, 1}spare
+           {3, 1}{2, 1}cn-DomainIdentity = CN-DomainIdentity
+            {5, 1}CN-DomainIdentity = ENUMERATED
+             Name{4, 1}cs-domain
+             Name{4, 1}ps-domain
+           {3, 1}{3, 1}pagingRecordTypeID = PagingRecordTypeID
+            {5, 1}PagingRecordTypeID = ENUMERATED
+             Name{4, 1}imsi-GSM-MAP
+             Name{4, 1}tmsi-GSM-MAP-P-TMSI
+             Name{4, 1}imsi-DS-41
+             Name{4, 1}tmsi-DS-41
+     {3, 1}{2, 1}bcch-ModificationInfo = BCCH-ModificationInfo    OPTIONAL
+      {5, 1}BCCH-ModificationInfo = SEQUENCE
+       {3, 1}{1, 1}mib-ValueTag = MIB-ValueTag
+        {5, 1}Val{4, 1}MIB-ValueTag = (1..8) INTEGER flexible
+       {3, 1}{2, 1}bcch-ModificationTime = BCCH-ModificationTime    OPTIONAL
+        {5, 1}Val{4, 1}BCCH-ModificationTime = (0..511) INTEGER flexible
+         {0, 0}-- Actual value BCCH-ModificationTime = IE value * 8
+     {3, 1}{3, 1}laterNonCriticalExtensions = SEQUENCE    OPTIONAL
+      {3, 1}{1, 1}Bits{4, 1}pagingType1-r3-add-ext = BIT STRING (SIZE(0))    OPTIONAL
+      {3, 1}{2, 1}v590NonCriticalExtensions = SEQUENCE    OPTIONAL
+       {3, 1}{1, 1}pagingType1-v590ext = PagingType1-v590ext-IEs
+        {5, 1}PagingType1-v590ext-IEs = SEQUENCE
+         {3, 1}{1, 1}pagingRecord2List = PagingRecord2List-r5    OPTIONAL
+          {5, 1}PagingRecord2List-r5 = SEQUENCE (SIZE(1..maxPage1=8)) OF
+           {4, 1}{X, 1}Field = PagingRecord2-r5
+            {5, 1}PagingRecord2-r5 = CHOICE
+             {4, 1}(1)utran-SingleUE-Identity = SEQUENCE
+              {3, 1}{1, 1}u-RNTI = U-RNTI
+               {5, 1}U-RNTI = SEQUENCE
+                {3, 1}{1, 1}srnc-Identity = SRNC-Identity
+                 {5, 1}Bits{4, 1}SRNC-Identity = BIT STRING (SIZE(12))
+                {3, 1}{2, 1}s-RNTI = S-RNTI
+                 {5, 1}Bits{4, 1}S-RNTI = BIT STRING (SIZE(20))
+              {3, 1}{2, 1}cn-OriginatedPage-connectedMode-UE = SEQUENCE    OPTIONAL
+               {3, 1}{1, 1}pagingCause = PagingCause
+                {5, 1}PagingCause = ENUMERATED
+                 Name{4, 1}terminatingConversationalCall
+                 Name{4, 1}terminatingStreamingCall
+                 Name{4, 1}terminatingInteractiveCall
+                 Name{4, 1}terminatingBackgroundCall
+                 Name{4, 1}terminatingHighPrioritySignalling
+                 Name{4, 1}terminatingLowPrioritySignalling
+                 Name{4, 1}terminatingCauseUnknown
+                 Name{4, 1}spare
+               {3, 1}{2, 1}cn-DomainIdentity = CN-DomainIdentity
+                {5, 1}CN-DomainIdentity = ENUMERATED
+                 Name{4, 1}cs-domain
+                 Name{4, 1}ps-domain
+               {3, 1}{3, 1}pagingRecordTypeID = PagingRecordTypeID
+                {5, 1}PagingRecordTypeID = ENUMERATED
+                 Name{4, 1}imsi-GSM-MAP
+                 Name{4, 1}tmsi-GSM-MAP-P-TMSI
+                 Name{4, 1}imsi-DS-41
+                 Name{4, 1}tmsi-DS-41
+              {3, 1}{3, 1}rrc-ConnectionReleaseInformation = RRC-ConnectionReleaseInformation
+               {5, 1}RRC-ConnectionReleaseInformation = CHOICE
+                {4, 1}(1)noRelease = NULL
+                {4, 1}(2)release = SEQUENCE
+                 {3, 1}{1, 1}releaseCause = ReleaseCause
+                  {5, 1}ReleaseCause = ENUMERATED
+                   Name{4, 1}normalEvent
+                   Name{4, 1}unspecified
+                   Name{4, 1}pre-emptiveRelease
+                   Name{4, 1}congestion
+                   Name{4, 1}re-establishmentReject
+                   Name{4, 1}directedsignallingconnectionre-establishment
+                   Name{4, 1}userInactivity
+                   Name{4, 1}spare
+             {4, 1}(2)utran-GroupIdentity = SEQUENCE (SIZE(1..maxURNTI-Group=8)) OF
+              {4, 1}{X, 1}Field = GroupIdentityWithReleaseInformation
+               {5, 1}GroupIdentityWithReleaseInformation = SEQUENCE
+                {3, 1}{1, 1}rrc-ConnectionReleaseInformation = RRC-ConnectionReleaseInformation
+                 {5, 1}RRC-ConnectionReleaseInformation = CHOICE
+                  {4, 1}(1)noRelease = NULL
+                  {4, 1}(2)release = SEQUENCE
+                   {3, 1}{1, 1}releaseCause = ReleaseCause
+                    {5, 1}ReleaseCause = ENUMERATED
+                     Name{4, 1}normalEvent
+                     Name{4, 1}unspecified
+                     Name{4, 1}pre-emptiveRelease
+                     Name{4, 1}congestion
+                     Name{4, 1}re-establishmentReject
+                     Name{4, 1}directedsignallingconnectionre-establishment
+                     Name{4, 1}userInactivity
+                     Name{4, 1}spare
+                {3, 1}{2, 1}groupReleaseInformation = GroupReleaseInformation
+                 {5, 1}GroupReleaseInformation = SEQUENCE
+                  {3, 1}{1, 1}uRNTI-Group = U-RNTI-Group
+                   {5, 1}U-RNTI-Group = CHOICE
+                    {4, 1}(1)all = NULL
+                    {4, 1}Bits{4, 1}(2)u-RNTI-BitMaskIndex-b1 = BIT STRING (SIZE(31))
+                    {4, 1}Bits{4, 1}(3)u-RNTI-BitMaskIndex-b2 = BIT STRING (SIZE(30))
+                    {4, 1}Bits{4, 1}(4)u-RNTI-BitMaskIndex-b3 = BIT STRING (SIZE(29))
+                    {4, 1}Bits{4, 1}(5)u-RNTI-BitMaskIndex-b4 = BIT STRING (SIZE(28))
+                    {4, 1}Bits{4, 1}(6)u-RNTI-BitMaskIndex-b5 = BIT STRING (SIZE(27))
+                    {4, 1}Bits{4, 1}(7)u-RNTI-BitMaskIndex-b6 = BIT STRING (SIZE(26))
+                    {4, 1}Bits{4, 1}(8)u-RNTI-BitMaskIndex-b7 = BIT STRING (SIZE(25))
+                    {4, 1}Bits{4, 1}(9)u-RNTI-BitMaskIndex-b8 = BIT STRING (SIZE(24))
+                    {4, 1}Bits{4, 1}(10)u-RNTI-BitMaskIndex-b9 = BIT STRING (SIZE(23))
+                    {4, 1}Bits{4, 1}(11)u-RNTI-BitMaskIndex-b10 = BIT STRING (SIZE(22))
+                    {4, 1}Bits{4, 1}(12)u-RNTI-BitMaskIndex-b11 = BIT STRING (SIZE(21))
+                    {4, 1}Bits{4, 1}(13)u-RNTI-BitMaskIndex-b12 = BIT STRING (SIZE(20))
+                    {4, 1}Bits{4, 1}(14)u-RNTI-BitMaskIndex-b13 = BIT STRING (SIZE(19))
+                    {4, 1}Bits{4, 1}(15)u-RNTI-BitMaskIndex-b14 = BIT STRING (SIZE(18))
+                    {4, 1}Bits{4, 1}(16)u-RNTI-BitMaskIndex-b15 = BIT STRING (SIZE(17))
+                    {4, 1}Bits{4, 1}(17)u-RNTI-BitMaskIndex-b16 = BIT STRING (SIZE(16))
+                    {4, 1}Bits{4, 1}(18)u-RNTI-BitMaskIndex-b17 = BIT STRING (SIZE(15))
+                    {4, 1}Bits{4, 1}(19)u-RNTI-BitMaskIndex-b18 = BIT STRING (SIZE(14))
+                    {4, 1}Bits{4, 1}(20)u-RNTI-BitMaskIndex-b19 = BIT STRING (SIZE(13))
+                    {4, 1}Bits{4, 1}(21)u-RNTI-BitMaskIndex-b20 = BIT STRING (SIZE(12))
+                    {4, 1}Bits{4, 1}(22)u-RNTI-BitMaskIndex-b21 = BIT STRING (SIZE(11))
+                    {4, 1}Bits{4, 1}(23)u-RNTI-BitMaskIndex-b22 = BIT STRING (SIZE(10))
+                    {4, 1}Bits{4, 1}(24)u-RNTI-BitMaskIndex-b23 = BIT STRING (SIZE(9))
+                    {4, 1}Bits{4, 1}(25)u-RNTI-BitMaskIndex-b24 = BIT STRING (SIZE(8))
+                    {4, 1}Bits{4, 1}(26)u-RNTI-BitMaskIndex-b25 = BIT STRING (SIZE(7))
+                    {4, 1}Bits{4, 1}(27)u-RNTI-BitMaskIndex-b26 = BIT STRING (SIZE(6))
+                    {4, 1}Bits{4, 1}(28)u-RNTI-BitMaskIndex-b27 = BIT STRING (SIZE(5))
+                    {4, 1}Bits{4, 1}(29)u-RNTI-BitMaskIndex-b28 = BIT STRING (SIZE(4))
+                    {4, 1}Bits{4, 1}(30)u-RNTI-BitMaskIndex-b29 = BIT STRING (SIZE(3))
+                    {4, 1}Bits{4, 1}(31)u-RNTI-BitMaskIndex-b30 = BIT STRING (SIZE(2))
+                    {4, 1}Bits{4, 1}(32)u-RNTI-BitMaskIndex-b31 = BIT STRING (SIZE(1))
+                    {0, 0}-- TABULAR: not following the tabular strictly, but this will most likely save bits
+         {0, 0}-- User equipment IEs
+       {3, 1}{2, 1}v860NonCriticalExtensions = SEQUENCE    OPTIONAL
+        {3, 1}{1, 1}pagingType1-v860ext = PagingType1-v860ext-IEs
+         {5, 1}PagingType1-v860ext-IEs = SEQUENCE
+          {3, 1}{1, 1}etws-Information = ETWS-Information    OPTIONAL
+           {5, 1}ETWS-Information = SEQUENCE
+            {3, 1}{1, 1}Val{4, 1}{X, 1}warningType = OCTET STRING (SIZE(1..2))
+            {3, 1}{2, 1}Val{4, 1}{X, 1}messageIdentifier = OCTET STRING (SIZE(2))
+            {3, 1}{3, 1}Val{4, 1}{X, 1}serialNumber = OCTET STRING (SIZE(2))
+          {0, 0}-- Other IEs
+        {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+      {0, 0}-- Container for additional R99 extensions
+     {0, 0}-- User equipment IEs
+     {0, 0}-- Other IEs
+   {4, 1}(2)spare = NULL

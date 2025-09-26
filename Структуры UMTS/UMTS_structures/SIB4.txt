@@ -1,0 +1,359 @@
+SysInfoType4 = SEQUENCE
+ {3, 1}{1, 1}cellIdentity = CellIdentity
+  {5, 1}Bits{4, 1}CellIdentity = BIT STRING (SIZE(28))
+ {3, 1}{2, 1}cellSelectReselectInfo = CellSelectReselectInfoSIB-3-4
+  {5, 1}CellSelectReselectInfoSIB-3-4 = SEQUENCE
+   {3, 1}{1, 1}mappingInfo = MappingInfo    OPTIONAL
+    {5, 1}MappingInfo = SEQUENCE (SIZE(1..maxRAT=16)) OF
+     {0, 0}-- In MappingInfo list, mapping for FDD and 3.84Mcps TDD is defined.
+     {0, 0}-- For 1.28Mcps TDD, Mapping-LCR-r4 is used instead.
+     {4, 1}{X, 1}Field = Mapping
+      {5, 1}Mapping = SEQUENCE
+       {3, 1}{1, 1}rat = RAT
+        {5, 1}RAT = ENUMERATED
+         Name{4, 1}utra-FDD
+         Name{4, 1}utra-TDD
+         Name{4, 1}gsm
+         Name{4, 1}cdma2000
+       {3, 1}{2, 1}mappingFunctionParameterList = MappingFunctionParameterList
+        {5, 1}MappingFunctionParameterList = SEQUENCE (SIZE(1..maxMeasIntervals=3)) OF
+         {4, 1}{X, 1}Field = MappingFunctionParameter
+          {5, 1}MappingFunctionParameter = SEQUENCE
+           {3, 1}{1, 1}functionType = MappingFunctionType
+            {5, 1}MappingFunctionType = ENUMERATED
+             Name{4, 1}linear
+             Name{4, 1}functionType2
+             Name{4, 1}functionType3
+             Name{4, 1}functionType4
+           {3, 1}{2, 1}mapParameter1 = MapParameter    OPTIONAL
+            {5, 1}Val{4, 1}MapParameter = (0..127) INTEGER flexible
+           {3, 1}{3, 1}mapParameter2 = MapParameter
+            {5, 1}Val{4, 1}MapParameter = (0..127) INTEGER flexible
+           {3, 1}{4, 1}upperLimit = UpperLimit    OPTIONAL
+            {5, 1}Val{4, 1}UpperLimit = (1..91) INTEGER flexible
+             {0, 0}-- For UpperLimit, the used range depends on the RAT used.
+           {0, 0}-- The presence of upperLimit is conditional on the number of repetition
+   {3, 1}{2, 1}cellSelectQualityMeasure = CHOICE
+    {4, 1}(1)cpich-Ec-N0 = SEQUENCE
+     {3, 1}{1, 1}q-HYST-2-S = Q-Hyst-S    OPTIONAL
+      {5, 1}Val{4, 1}Q-Hyst-S = (0..20) INTEGER flexible
+       {0, 0}-- Actual value Q-Hyst-S = IE value * 2
+     {0, 0}-- Default value for q-HYST-2-S is q-HYST-1-S
+    {4, 1}(2)cpich-RSCP = NULL
+   {3, 1}{3, 1}modeSpecificInfo = CHOICE
+    {4, 1}(1)fdd = SEQUENCE
+     {3, 1}{1, 1}s-Intrasearch = S-SearchQual    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchQual = (-16..10) INTEGER flexible
+       {0, 0}-- Actual value S-SearchQual = IE value * 2
+     {3, 1}{2, 1}s-Intersearch = S-SearchQual    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchQual = (-16..10) INTEGER flexible
+       {0, 0}-- Actual value S-SearchQual = IE value * 2
+     {3, 1}{3, 1}s-SearchHCS = S-SearchRXLEV    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+       {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+     {3, 1}{4, 1}rat-List = RAT-FDD-InfoList    OPTIONAL
+      {5, 1}RAT-FDD-InfoList = SEQUENCE (SIZE(1..maxOtherRAT=15)) OF
+       {4, 1}{X, 1}Field = RAT-FDD-Info
+        {5, 1}RAT-FDD-Info = SEQUENCE
+         {3, 1}{1, 1}rat-Identifier = RAT-Identifier
+          {5, 1}RAT-Identifier = ENUMERATED
+           Name{4, 1}gsm
+           Name{4, 1}cdma2000
+         {3, 1}{2, 1}s-SearchRAT = S-SearchQual
+          {5, 1}Val{4, 1}S-SearchQual = (-16..10) INTEGER flexible
+           {0, 0}-- Actual value S-SearchQual = IE value * 2
+         {3, 1}{3, 1}s-HCS-RAT = S-SearchRXLEV    OPTIONAL
+          {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+           {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+         {3, 1}{4, 1}s-Limit-SearchRAT = S-SearchQual
+          {5, 1}Val{4, 1}S-SearchQual = (-16..10) INTEGER flexible
+           {0, 0}-- Actual value S-SearchQual = IE value * 2
+     {3, 1}{5, 1}q-QualMin = Q-QualMin
+      {5, 1}Val{4, 1}Q-QualMin = (-24..0) INTEGER flexible
+     {3, 1}{6, 1}q-RxlevMin = Q-RxlevMin
+      {5, 1}Val{4, 1}Q-RxlevMin = (-58..-13) INTEGER flexible
+       {0, 0}-- Actual value Q-RxlevMin = (IE value * 2) + 1
+    {4, 1}(2)tdd = SEQUENCE
+     {3, 1}{1, 1}s-Intrasearch = S-SearchRXLEV    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+       {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+     {3, 1}{2, 1}s-Intersearch = S-SearchRXLEV    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+       {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+     {3, 1}{3, 1}s-SearchHCS = S-SearchRXLEV    OPTIONAL
+      {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+       {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+     {3, 1}{4, 1}rat-List = RAT-TDD-InfoList    OPTIONAL
+      {5, 1}RAT-TDD-InfoList = SEQUENCE (SIZE(1..maxOtherRAT=15)) OF
+       {4, 1}{X, 1}Field = RAT-TDD-Info
+        {5, 1}RAT-TDD-Info = SEQUENCE
+         {3, 1}{1, 1}rat-Identifier = RAT-Identifier
+          {5, 1}RAT-Identifier = ENUMERATED
+           Name{4, 1}gsm
+           Name{4, 1}cdma2000
+         {3, 1}{2, 1}s-SearchRAT = S-SearchRXLEV
+          {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+           {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+         {3, 1}{3, 1}s-HCS-RAT = S-SearchRXLEV    OPTIONAL
+          {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+           {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+         {3, 1}{4, 1}s-Limit-SearchRAT = S-SearchRXLEV
+          {5, 1}Val{4, 1}S-SearchRXLEV = (-53..45) INTEGER flexible
+           {0, 0}-- Actual value S-SearchRXLEV = (IE value * 2) + 1
+     {3, 1}{5, 1}q-RxlevMin = Q-RxlevMin
+      {5, 1}Val{4, 1}Q-RxlevMin = (-58..-13) INTEGER flexible
+       {0, 0}-- Actual value Q-RxlevMin = (IE value * 2) + 1
+   {3, 1}{4, 1}q-Hyst-l-S = Q-Hyst-S
+    {5, 1}Val{4, 1}Q-Hyst-S = (0..20) INTEGER flexible
+     {0, 0}-- Actual value Q-Hyst-S = IE value * 2
+   {3, 1}{5, 1}t-Reselection-S = T-Reselection-S
+    {5, 1}Val{4, 1}T-Reselection-S = (0..31) INTEGER flexible
+   {3, 1}{6, 1}hcs-ServingCellInformation = HCS-ServingCellInformation    OPTIONAL
+    {5, 1}HCS-ServingCellInformation = SEQUENCE
+     {3, 1}{1, 1}hcs-PRIO = HCS-PRIO    DEFAULT 0 (INTEGER fixed or flexible)
+      {5, 1}Val{4, 1}HCS-PRIO = (0..7) INTEGER flexible
+     {3, 1}{2, 1}q-HCS = Q-HCS    DEFAULT 0 (INTEGER fixed or flexible)
+      {5, 1}Val{4, 1}Q-HCS = (0..99) INTEGER flexible
+     {3, 1}{3, 1}t-CR-Max = T-CRMax    OPTIONAL
+      {5, 1}T-CRMax = CHOICE
+       {4, 1}(1)notUsed = NULL
+       {4, 1}(2)t30 = N-CR-T-CRMaxHyst
+        {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+         {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+          {5, 1}T-CRMaxHyst = ENUMERATED
+           Name{4, 1}notUsed
+           Name{4, 1}t10
+           Name{4, 1}t20
+           Name{4, 1}t30
+           Name{4, 1}t40
+           Name{4, 1}t50
+           Name{4, 1}t60
+           Name{4, 1}t70
+       {4, 1}(3)t60 = N-CR-T-CRMaxHyst
+        {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+         {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+          {5, 1}T-CRMaxHyst = ENUMERATED
+           Name{4, 1}notUsed
+           Name{4, 1}t10
+           Name{4, 1}t20
+           Name{4, 1}t30
+           Name{4, 1}t40
+           Name{4, 1}t50
+           Name{4, 1}t60
+           Name{4, 1}t70
+       {4, 1}(4)t120 = N-CR-T-CRMaxHyst
+        {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+         {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+          {5, 1}T-CRMaxHyst = ENUMERATED
+           Name{4, 1}notUsed
+           Name{4, 1}t10
+           Name{4, 1}t20
+           Name{4, 1}t30
+           Name{4, 1}t40
+           Name{4, 1}t50
+           Name{4, 1}t60
+           Name{4, 1}t70
+       {4, 1}(5)t180 = N-CR-T-CRMaxHyst
+        {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+         {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+          {5, 1}T-CRMaxHyst = ENUMERATED
+           Name{4, 1}notUsed
+           Name{4, 1}t10
+           Name{4, 1}t20
+           Name{4, 1}t30
+           Name{4, 1}t40
+           Name{4, 1}t50
+           Name{4, 1}t60
+           Name{4, 1}t70
+       {4, 1}(6)t240 = N-CR-T-CRMaxHyst
+        {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+         {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+         {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+          {5, 1}T-CRMaxHyst = ENUMERATED
+           Name{4, 1}notUsed
+           Name{4, 1}t10
+           Name{4, 1}t20
+           Name{4, 1}t30
+           Name{4, 1}t40
+           Name{4, 1}t50
+           Name{4, 1}t60
+           Name{4, 1}t70
+   {3, 1}{7, 1}maxAllowedUL-TX-Power = MaxAllowedUL-TX-Power
+    {5, 1}Val{4, 1}MaxAllowedUL-TX-Power = (-50..33) INTEGER flexible
+ {3, 1}{3, 1}cellAccessRestriction = CellAccessRestriction
+  {5, 1}CellAccessRestriction = SEQUENCE
+   {3, 1}{1, 1}cellBarred = CellBarred
+    {5, 1}CellBarred = CHOICE
+     {4, 1}(1)barred = SEQUENCE
+      {3, 1}{1, 1}intraFreqCellReselectionInd = AllowedIndicator
+       {5, 1}AllowedIndicator = ENUMERATED
+        Name{4, 1}allowed
+        Name{4, 1}notAllowed
+      {3, 1}{2, 1}t-Barred = T-Barred
+       {5, 1}T-Barred = ENUMERATED
+        Name{4, 1}s10
+        Name{4, 1}s20
+        Name{4, 1}s40
+        Name{4, 1}s80
+        Name{4, 1}s160
+        Name{4, 1}s320
+        Name{4, 1}s640
+        Name{4, 1}s1280
+     {4, 1}(2)notBarred = NULL
+   {3, 1}{2, 1}cellReservedForOperatorUse = ReservedIndicator
+    {5, 1}ReservedIndicator = ENUMERATED
+     Name{4, 1}reserved
+     Name{4, 1}notReserved
+   {3, 1}{3, 1}cellReservationExtension = ReservedIndicator
+    {5, 1}ReservedIndicator = ENUMERATED
+     Name{4, 1}reserved
+     Name{4, 1}notReserved
+   {3, 1}{4, 1}accessClassBarredList = AccessClassBarredList    OPTIONAL
+    {5, 1}AccessClassBarredList = SEQUENCE (SIZE(maxAC=16)) OF
+     {4, 1}{X, 1}Field = AccessClassBarred
+      {5, 1}AccessClassBarred = ENUMERATED
+       Name{4, 1}barred
+       Name{4, 1}notBarred
+   {0, 0}-- NOTE: IE accessClassBarredList should not be included if the IE CellAccessRestriction
+   {0, 0}-- is included in the IE SysInfoType4
+ {3, 1}{4, 1}v4b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+  {3, 1}{1, 1}sysInfoType4-v4b0ext = SysInfoType4-v4b0ext-IEs
+   {5, 1}SysInfoType4-v4b0ext-IEs = SEQUENCE
+    {3, 1}{1, 1}mapping-LCR = Mapping-LCR-r4    OPTIONAL
+     {5, 1}Mapping-LCR-r4 = SEQUENCE
+      {3, 1}{1, 1}mappingFunctionParameterList = MappingFunctionParameterList
+       {5, 1}MappingFunctionParameterList = SEQUENCE (SIZE(1..maxMeasIntervals=3)) OF
+        {4, 1}{X, 1}Field = MappingFunctionParameter
+         {5, 1}MappingFunctionParameter = SEQUENCE
+          {3, 1}{1, 1}functionType = MappingFunctionType
+           {5, 1}MappingFunctionType = ENUMERATED
+            Name{4, 1}linear
+            Name{4, 1}functionType2
+            Name{4, 1}functionType3
+            Name{4, 1}functionType4
+          {3, 1}{2, 1}mapParameter1 = MapParameter    OPTIONAL
+           {5, 1}Val{4, 1}MapParameter = (0..127) INTEGER flexible
+          {3, 1}{3, 1}mapParameter2 = MapParameter
+           {5, 1}Val{4, 1}MapParameter = (0..127) INTEGER flexible
+          {3, 1}{4, 1}upperLimit = UpperLimit    OPTIONAL
+           {5, 1}Val{4, 1}UpperLimit = (1..91) INTEGER flexible
+            {0, 0}-- For UpperLimit, the used range depends on the RAT used.
+          {0, 0}-- The presence of upperLimit is conditional on the number of repetition
+  {3, 1}{2, 1}v590NonCriticalExtension = SEQUENCE    OPTIONAL
+   {3, 1}{1, 1}sysInfoType4-v590ext = SysInfoType4-v590ext
+    {5, 1}SysInfoType4-v590ext = SEQUENCE
+     {3, 1}{1, 1}cellSelectReselectInfo-v590ext = CellSelectReselectInfo-v590ext    OPTIONAL
+      {5, 1}CellSelectReselectInfo-v590ext = SEQUENCE
+       {3, 1}{1, 1}deltaQrxlevmin = DeltaQrxlevmin    OPTIONAL
+        {5, 1}Val{4, 1}DeltaQrxlevmin = (-2..-1) INTEGER flexible
+         {0, 0}--Actual value DeltaQrxlevmin = IE value * 2
+       {3, 1}{2, 1}deltaQhcs = DeltaRSCP    OPTIONAL
+        {5, 1}Val{4, 1}DeltaRSCP = (-5..-1) INTEGER flexible
+   {3, 1}{2, 1}v5b0NonCriticalExtension = SEQUENCE    OPTIONAL
+    {3, 1}{1, 1}sysInfoType4-v5b0ext = SysInfoType4-v5b0ext-IEs
+     {5, 1}SysInfoType4-v5b0ext-IEs = SEQUENCE
+      {3, 1}{1, 1}cellSelectReselectInfoPCHFACH-v5b0ext = CellSelectReselectInfoPCHFACH-v5b0ext    OPTIONAL
+       {5, 1}CellSelectReselectInfoPCHFACH-v5b0ext = SEQUENCE
+        {3, 1}{1, 1}q-Hyst-l-S-PCH = Q-Hyst-S-Fine    OPTIONAL
+         {5, 1}Val{4, 1}Q-Hyst-S-Fine = (0..40) INTEGER flexible
+        {3, 1}{2, 1}q-Hyst-l-S-FACH = Q-Hyst-S-Fine    OPTIONAL
+         {5, 1}Val{4, 1}Q-Hyst-S-Fine = (0..40) INTEGER flexible
+        {3, 1}{3, 1}q-Hyst-2-S-PCH = Q-Hyst-S-Fine    OPTIONAL
+         {5, 1}Val{4, 1}Q-Hyst-S-Fine = (0..40) INTEGER flexible
+        {3, 1}{4, 1}q-Hyst-2-S-FACH = Q-Hyst-S-Fine    OPTIONAL
+         {5, 1}Val{4, 1}Q-Hyst-S-Fine = (0..40) INTEGER flexible
+        {3, 1}{5, 1}t-Reselection-S-PCH = T-Reselection-S    OPTIONAL
+         {5, 1}Val{4, 1}T-Reselection-S = (0..31) INTEGER flexible
+        {3, 1}{6, 1}t-Reselection-S-FACH = T-Reselection-S-Fine    OPTIONAL
+         {5, 1}Val{4, 1}T-Reselection-S-Fine = (0..31) INTEGER flexible
+          {0, 0}-- Actual value T-Reselection-S-Fine = IE value * 0.2
+    {3, 1}{2, 1}v5c0NonCriticalExtension = SEQUENCE    OPTIONAL
+     {3, 1}{1, 1}sysInfoType4-v5c0ext = SysInfoType4-v5c0ext-IEs
+      {5, 1}SysInfoType4-v5c0ext-IEs = SEQUENCE
+       {3, 1}{1, 1}cellSelectReselectInfoTreselectionScaling-v5c0ext = CellSelectReselectInfoTreselectionScaling-v5c0ext    OPTIONAL
+        {5, 1}CellSelectReselectInfoTreselectionScaling-v5c0ext = SEQUENCE
+         {3, 1}{1, 1}non-HCS-t-CR-Max = T-CRMax    OPTIONAL
+          {5, 1}T-CRMax = CHOICE
+           {4, 1}(1)notUsed = NULL
+           {4, 1}(2)t30 = N-CR-T-CRMaxHyst
+            {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+             {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+              {5, 1}T-CRMaxHyst = ENUMERATED
+               Name{4, 1}notUsed
+               Name{4, 1}t10
+               Name{4, 1}t20
+               Name{4, 1}t30
+               Name{4, 1}t40
+               Name{4, 1}t50
+               Name{4, 1}t60
+               Name{4, 1}t70
+           {4, 1}(3)t60 = N-CR-T-CRMaxHyst
+            {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+             {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+              {5, 1}T-CRMaxHyst = ENUMERATED
+               Name{4, 1}notUsed
+               Name{4, 1}t10
+               Name{4, 1}t20
+               Name{4, 1}t30
+               Name{4, 1}t40
+               Name{4, 1}t50
+               Name{4, 1}t60
+               Name{4, 1}t70
+           {4, 1}(4)t120 = N-CR-T-CRMaxHyst
+            {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+             {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+              {5, 1}T-CRMaxHyst = ENUMERATED
+               Name{4, 1}notUsed
+               Name{4, 1}t10
+               Name{4, 1}t20
+               Name{4, 1}t30
+               Name{4, 1}t40
+               Name{4, 1}t50
+               Name{4, 1}t60
+               Name{4, 1}t70
+           {4, 1}(5)t180 = N-CR-T-CRMaxHyst
+            {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+             {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+              {5, 1}T-CRMaxHyst = ENUMERATED
+               Name{4, 1}notUsed
+               Name{4, 1}t10
+               Name{4, 1}t20
+               Name{4, 1}t30
+               Name{4, 1}t40
+               Name{4, 1}t50
+               Name{4, 1}t60
+               Name{4, 1}t70
+           {4, 1}(6)t240 = N-CR-T-CRMaxHyst
+            {5, 1}N-CR-T-CRMaxHyst = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}n-CR = (1..16) INTEGER flexible    DEFAULT8
+             {3, 1}{2, 1}t-CRMaxHyst = T-CRMaxHyst
+              {5, 1}T-CRMaxHyst = ENUMERATED
+               Name{4, 1}notUsed
+               Name{4, 1}t10
+               Name{4, 1}t20
+               Name{4, 1}t30
+               Name{4, 1}t40
+               Name{4, 1}t50
+               Name{4, 1}t60
+               Name{4, 1}t70
+         {3, 1}{2, 1}speedDependentScalingFactor = SpeedDependentScalingFactor    OPTIONAL
+          {5, 1}Val{4, 1}SpeedDependentScalingFactor = (0..10) INTEGER flexible
+           {0, 0}-- Actual value ScalingFactor = IE value * 0.1
+         {3, 1}{3, 1}interFrequencyTreselectionScalingFactor = TreselectionScalingFactor    OPTIONAL
+          {5, 1}Val{4, 1}TreselectionScalingFactor = (4..19) INTEGER flexible
+           {0, 0}-- Actual value ScalingFactor = IE value * 0.25
+         {3, 1}{4, 1}interRATTreselectionScalingFactor = TreselectionScalingFactor    OPTIONAL
+          {5, 1}Val{4, 1}TreselectionScalingFactor = (4..19) INTEGER flexible
+           {0, 0}-- Actual value ScalingFactor = IE value * 0.25
+         {0, 0}-- For speed detection, the same HCS parameters are utilised
+     {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- UTRAN mobility IEs
+ {0, 0}-- Extension mechanism for non- release99 information

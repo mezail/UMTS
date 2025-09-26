@@ -1,0 +1,664 @@
+BCCH-BCH-Message = SEQUENCE
+ {3, 1}{1, 1}message = SystemInformation-BCH
+  {5, 1}SystemInformation-BCH = SEQUENCE
+   {3, 1}{1, 1}sfn-Prime = SFN-Prime
+    {5, 1}Val{4, 1}SFN-Prime = (0..2047) INTEGER flexible
+     {0, 0}-- Actual value SFN-Prime = 2 * IE value
+   {3, 1}{2, 1}payload = CHOICE
+    {4, 1}(1)noSegment = NULL
+    {4, 1}(2)firstSegment = FirstSegment
+     {5, 1}FirstSegment = SEQUENCE
+      {3, 1}{1, 1}sib-Type = SIB-Type
+       {5, 1}SIB-Type = ENUMERATED
+        Name{4, 1}masterInformationBlock
+        Name{4, 1}systemInformationBlockType1
+        Name{4, 1}systemInformationBlockType2
+        Name{4, 1}systemInformationBlockType3
+        Name{4, 1}systemInformationBlockType4
+        Name{4, 1}systemInformationBlockType5
+        Name{4, 1}systemInformationBlockType6
+        Name{4, 1}systemInformationBlockType7
+        Name{4, 1}dummy
+        Name{4, 1}dummy2
+        Name{4, 1}dummy3
+        Name{4, 1}systemInformationBlockType11
+        Name{4, 1}systemInformationBlockType12
+        Name{4, 1}systemInformationBlockType13
+        Name{4, 1}systemInformationBlockType13-1
+        Name{4, 1}systemInformationBlockType13-2
+        Name{4, 1}systemInformationBlockType13-3
+        Name{4, 1}systemInformationBlockType13-4
+        Name{4, 1}systemInformationBlockType14
+        Name{4, 1}systemInformationBlockType15
+        Name{4, 1}systemInformationBlockType15-1
+        Name{4, 1}systemInformationBlockType15-2
+        Name{4, 1}systemInformationBlockType15-3
+        Name{4, 1}systemInformationBlockType16
+        Name{4, 1}systemInformationBlockType17
+        Name{4, 1}systemInformationBlockType15-4
+        Name{4, 1}systemInformationBlockType18
+        Name{4, 1}schedulingBlock1
+        Name{4, 1}schedulingBlock2
+        Name{4, 1}systemInformationBlockType15-5
+        Name{4, 1}systemInformationBlockType5bis
+        Name{4, 1}extensionType
+        {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+        {0, 0}-- they should not be sent. If they are received they should be ignored
+      {3, 1}{2, 1}seg-Count = SegCount
+       {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+      {3, 1}{3, 1}sib-Data-fixed = SIB-Data-fixed
+       {5, 1}Bits{4, 1}SIB-Data-fixed = BIT STRING (SIZE(222))
+      {0, 0}-- Other information elements
+    {4, 1}(3)subsequentSegment = SubsequentSegment
+     {5, 1}SubsequentSegment = SEQUENCE
+      {3, 1}{1, 1}sib-Type = SIB-Type
+       {5, 1}SIB-Type = ENUMERATED
+        Name{4, 1}masterInformationBlock
+        Name{4, 1}systemInformationBlockType1
+        Name{4, 1}systemInformationBlockType2
+        Name{4, 1}systemInformationBlockType3
+        Name{4, 1}systemInformationBlockType4
+        Name{4, 1}systemInformationBlockType5
+        Name{4, 1}systemInformationBlockType6
+        Name{4, 1}systemInformationBlockType7
+        Name{4, 1}dummy
+        Name{4, 1}dummy2
+        Name{4, 1}dummy3
+        Name{4, 1}systemInformationBlockType11
+        Name{4, 1}systemInformationBlockType12
+        Name{4, 1}systemInformationBlockType13
+        Name{4, 1}systemInformationBlockType13-1
+        Name{4, 1}systemInformationBlockType13-2
+        Name{4, 1}systemInformationBlockType13-3
+        Name{4, 1}systemInformationBlockType13-4
+        Name{4, 1}systemInformationBlockType14
+        Name{4, 1}systemInformationBlockType15
+        Name{4, 1}systemInformationBlockType15-1
+        Name{4, 1}systemInformationBlockType15-2
+        Name{4, 1}systemInformationBlockType15-3
+        Name{4, 1}systemInformationBlockType16
+        Name{4, 1}systemInformationBlockType17
+        Name{4, 1}systemInformationBlockType15-4
+        Name{4, 1}systemInformationBlockType18
+        Name{4, 1}schedulingBlock1
+        Name{4, 1}schedulingBlock2
+        Name{4, 1}systemInformationBlockType15-5
+        Name{4, 1}systemInformationBlockType5bis
+        Name{4, 1}extensionType
+        {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+        {0, 0}-- they should not be sent. If they are received they should be ignored
+      {3, 1}{2, 1}segmentIndex = SegmentIndex
+       {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+      {3, 1}{3, 1}sib-Data-fixed = SIB-Data-fixed
+       {5, 1}Bits{4, 1}SIB-Data-fixed = BIT STRING (SIZE(222))
+      {0, 0}-- Other information elements
+    {4, 1}(4)lastSegmentShort = LastSegmentShort
+     {5, 1}LastSegmentShort = SEQUENCE
+      {3, 1}{1, 1}sib-Type = SIB-Type
+       {5, 1}SIB-Type = ENUMERATED
+        Name{4, 1}masterInformationBlock
+        Name{4, 1}systemInformationBlockType1
+        Name{4, 1}systemInformationBlockType2
+        Name{4, 1}systemInformationBlockType3
+        Name{4, 1}systemInformationBlockType4
+        Name{4, 1}systemInformationBlockType5
+        Name{4, 1}systemInformationBlockType6
+        Name{4, 1}systemInformationBlockType7
+        Name{4, 1}dummy
+        Name{4, 1}dummy2
+        Name{4, 1}dummy3
+        Name{4, 1}systemInformationBlockType11
+        Name{4, 1}systemInformationBlockType12
+        Name{4, 1}systemInformationBlockType13
+        Name{4, 1}systemInformationBlockType13-1
+        Name{4, 1}systemInformationBlockType13-2
+        Name{4, 1}systemInformationBlockType13-3
+        Name{4, 1}systemInformationBlockType13-4
+        Name{4, 1}systemInformationBlockType14
+        Name{4, 1}systemInformationBlockType15
+        Name{4, 1}systemInformationBlockType15-1
+        Name{4, 1}systemInformationBlockType15-2
+        Name{4, 1}systemInformationBlockType15-3
+        Name{4, 1}systemInformationBlockType16
+        Name{4, 1}systemInformationBlockType17
+        Name{4, 1}systemInformationBlockType15-4
+        Name{4, 1}systemInformationBlockType18
+        Name{4, 1}schedulingBlock1
+        Name{4, 1}schedulingBlock2
+        Name{4, 1}systemInformationBlockType15-5
+        Name{4, 1}systemInformationBlockType5bis
+        Name{4, 1}extensionType
+        {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+        {0, 0}-- they should not be sent. If they are received they should be ignored
+      {3, 1}{2, 1}segmentIndex = SegmentIndex
+       {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+      {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+       {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+      {0, 0}-- Other information elements
+    {4, 1}(5)lastAndFirst = SEQUENCE
+     {3, 1}{1, 1}lastSegmentShort = LastSegmentShort
+      {5, 1}LastSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}segmentIndex = SegmentIndex
+        {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+     {3, 1}{2, 1}firstSegment = FirstSegmentShort
+      {5, 1}FirstSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}seg-Count = SegCount
+        {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+    {4, 1}(6)lastAndComplete = SEQUENCE
+     {3, 1}{1, 1}lastSegmentShort = LastSegmentShort
+      {5, 1}LastSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}segmentIndex = SegmentIndex
+        {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+     {3, 1}{2, 1}completeSIB-List = CompleteSIB-List
+      {5, 1}CompleteSIB-List = SEQUENCE (SIZE(1..maxSIBperMsg=16)) OF
+       {4, 1}{X, 1}Field = CompleteSIBshort
+        {5, 1}CompleteSIBshort = SEQUENCE
+         {3, 1}{1, 1}sib-Type = SIB-Type
+          {5, 1}SIB-Type = ENUMERATED
+           Name{4, 1}masterInformationBlock
+           Name{4, 1}systemInformationBlockType1
+           Name{4, 1}systemInformationBlockType2
+           Name{4, 1}systemInformationBlockType3
+           Name{4, 1}systemInformationBlockType4
+           Name{4, 1}systemInformationBlockType5
+           Name{4, 1}systemInformationBlockType6
+           Name{4, 1}systemInformationBlockType7
+           Name{4, 1}dummy
+           Name{4, 1}dummy2
+           Name{4, 1}dummy3
+           Name{4, 1}systemInformationBlockType11
+           Name{4, 1}systemInformationBlockType12
+           Name{4, 1}systemInformationBlockType13
+           Name{4, 1}systemInformationBlockType13-1
+           Name{4, 1}systemInformationBlockType13-2
+           Name{4, 1}systemInformationBlockType13-3
+           Name{4, 1}systemInformationBlockType13-4
+           Name{4, 1}systemInformationBlockType14
+           Name{4, 1}systemInformationBlockType15
+           Name{4, 1}systemInformationBlockType15-1
+           Name{4, 1}systemInformationBlockType15-2
+           Name{4, 1}systemInformationBlockType15-3
+           Name{4, 1}systemInformationBlockType16
+           Name{4, 1}systemInformationBlockType17
+           Name{4, 1}systemInformationBlockType15-4
+           Name{4, 1}systemInformationBlockType18
+           Name{4, 1}schedulingBlock1
+           Name{4, 1}schedulingBlock2
+           Name{4, 1}systemInformationBlockType15-5
+           Name{4, 1}systemInformationBlockType5bis
+           Name{4, 1}extensionType
+           {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+           {0, 0}-- they should not be sent. If they are received they should be ignored
+         {3, 1}{2, 1}sib-Data-variable = SIB-Data-variable
+          {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+         {0, 0}-- Other information elements
+    {4, 1}(7)lastAndCompleteAndFirst = SEQUENCE
+     {3, 1}{1, 1}lastSegmentShort = LastSegmentShort
+      {5, 1}LastSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}segmentIndex = SegmentIndex
+        {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+     {3, 1}{2, 1}completeSIB-List = CompleteSIB-List
+      {5, 1}CompleteSIB-List = SEQUENCE (SIZE(1..maxSIBperMsg=16)) OF
+       {4, 1}{X, 1}Field = CompleteSIBshort
+        {5, 1}CompleteSIBshort = SEQUENCE
+         {3, 1}{1, 1}sib-Type = SIB-Type
+          {5, 1}SIB-Type = ENUMERATED
+           Name{4, 1}masterInformationBlock
+           Name{4, 1}systemInformationBlockType1
+           Name{4, 1}systemInformationBlockType2
+           Name{4, 1}systemInformationBlockType3
+           Name{4, 1}systemInformationBlockType4
+           Name{4, 1}systemInformationBlockType5
+           Name{4, 1}systemInformationBlockType6
+           Name{4, 1}systemInformationBlockType7
+           Name{4, 1}dummy
+           Name{4, 1}dummy2
+           Name{4, 1}dummy3
+           Name{4, 1}systemInformationBlockType11
+           Name{4, 1}systemInformationBlockType12
+           Name{4, 1}systemInformationBlockType13
+           Name{4, 1}systemInformationBlockType13-1
+           Name{4, 1}systemInformationBlockType13-2
+           Name{4, 1}systemInformationBlockType13-3
+           Name{4, 1}systemInformationBlockType13-4
+           Name{4, 1}systemInformationBlockType14
+           Name{4, 1}systemInformationBlockType15
+           Name{4, 1}systemInformationBlockType15-1
+           Name{4, 1}systemInformationBlockType15-2
+           Name{4, 1}systemInformationBlockType15-3
+           Name{4, 1}systemInformationBlockType16
+           Name{4, 1}systemInformationBlockType17
+           Name{4, 1}systemInformationBlockType15-4
+           Name{4, 1}systemInformationBlockType18
+           Name{4, 1}schedulingBlock1
+           Name{4, 1}schedulingBlock2
+           Name{4, 1}systemInformationBlockType15-5
+           Name{4, 1}systemInformationBlockType5bis
+           Name{4, 1}extensionType
+           {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+           {0, 0}-- they should not be sent. If they are received they should be ignored
+         {3, 1}{2, 1}sib-Data-variable = SIB-Data-variable
+          {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+         {0, 0}-- Other information elements
+     {3, 1}{3, 1}firstSegment = FirstSegmentShort
+      {5, 1}FirstSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}seg-Count = SegCount
+        {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+    {4, 1}(8)completeSIB-List = CompleteSIB-List
+     {5, 1}CompleteSIB-List = SEQUENCE (SIZE(1..maxSIBperMsg=16)) OF
+      {4, 1}{X, 1}Field = CompleteSIBshort
+       {5, 1}CompleteSIBshort = SEQUENCE
+        {3, 1}{1, 1}sib-Type = SIB-Type
+         {5, 1}SIB-Type = ENUMERATED
+          Name{4, 1}masterInformationBlock
+          Name{4, 1}systemInformationBlockType1
+          Name{4, 1}systemInformationBlockType2
+          Name{4, 1}systemInformationBlockType3
+          Name{4, 1}systemInformationBlockType4
+          Name{4, 1}systemInformationBlockType5
+          Name{4, 1}systemInformationBlockType6
+          Name{4, 1}systemInformationBlockType7
+          Name{4, 1}dummy
+          Name{4, 1}dummy2
+          Name{4, 1}dummy3
+          Name{4, 1}systemInformationBlockType11
+          Name{4, 1}systemInformationBlockType12
+          Name{4, 1}systemInformationBlockType13
+          Name{4, 1}systemInformationBlockType13-1
+          Name{4, 1}systemInformationBlockType13-2
+          Name{4, 1}systemInformationBlockType13-3
+          Name{4, 1}systemInformationBlockType13-4
+          Name{4, 1}systemInformationBlockType14
+          Name{4, 1}systemInformationBlockType15
+          Name{4, 1}systemInformationBlockType15-1
+          Name{4, 1}systemInformationBlockType15-2
+          Name{4, 1}systemInformationBlockType15-3
+          Name{4, 1}systemInformationBlockType16
+          Name{4, 1}systemInformationBlockType17
+          Name{4, 1}systemInformationBlockType15-4
+          Name{4, 1}systemInformationBlockType18
+          Name{4, 1}schedulingBlock1
+          Name{4, 1}schedulingBlock2
+          Name{4, 1}systemInformationBlockType15-5
+          Name{4, 1}systemInformationBlockType5bis
+          Name{4, 1}extensionType
+          {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+          {0, 0}-- they should not be sent. If they are received they should be ignored
+        {3, 1}{2, 1}sib-Data-variable = SIB-Data-variable
+         {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+        {0, 0}-- Other information elements
+    {4, 1}(9)completeAndFirst = SEQUENCE
+     {3, 1}{1, 1}completeSIB-List = CompleteSIB-List
+      {5, 1}CompleteSIB-List = SEQUENCE (SIZE(1..maxSIBperMsg=16)) OF
+       {4, 1}{X, 1}Field = CompleteSIBshort
+        {5, 1}CompleteSIBshort = SEQUENCE
+         {3, 1}{1, 1}sib-Type = SIB-Type
+          {5, 1}SIB-Type = ENUMERATED
+           Name{4, 1}masterInformationBlock
+           Name{4, 1}systemInformationBlockType1
+           Name{4, 1}systemInformationBlockType2
+           Name{4, 1}systemInformationBlockType3
+           Name{4, 1}systemInformationBlockType4
+           Name{4, 1}systemInformationBlockType5
+           Name{4, 1}systemInformationBlockType6
+           Name{4, 1}systemInformationBlockType7
+           Name{4, 1}dummy
+           Name{4, 1}dummy2
+           Name{4, 1}dummy3
+           Name{4, 1}systemInformationBlockType11
+           Name{4, 1}systemInformationBlockType12
+           Name{4, 1}systemInformationBlockType13
+           Name{4, 1}systemInformationBlockType13-1
+           Name{4, 1}systemInformationBlockType13-2
+           Name{4, 1}systemInformationBlockType13-3
+           Name{4, 1}systemInformationBlockType13-4
+           Name{4, 1}systemInformationBlockType14
+           Name{4, 1}systemInformationBlockType15
+           Name{4, 1}systemInformationBlockType15-1
+           Name{4, 1}systemInformationBlockType15-2
+           Name{4, 1}systemInformationBlockType15-3
+           Name{4, 1}systemInformationBlockType16
+           Name{4, 1}systemInformationBlockType17
+           Name{4, 1}systemInformationBlockType15-4
+           Name{4, 1}systemInformationBlockType18
+           Name{4, 1}schedulingBlock1
+           Name{4, 1}schedulingBlock2
+           Name{4, 1}systemInformationBlockType15-5
+           Name{4, 1}systemInformationBlockType5bis
+           Name{4, 1}extensionType
+           {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+           {0, 0}-- they should not be sent. If they are received they should be ignored
+         {3, 1}{2, 1}sib-Data-variable = SIB-Data-variable
+          {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+         {0, 0}-- Other information elements
+     {3, 1}{2, 1}firstSegment = FirstSegmentShort
+      {5, 1}FirstSegmentShort = SEQUENCE
+       {3, 1}{1, 1}sib-Type = SIB-Type
+        {5, 1}SIB-Type = ENUMERATED
+         Name{4, 1}masterInformationBlock
+         Name{4, 1}systemInformationBlockType1
+         Name{4, 1}systemInformationBlockType2
+         Name{4, 1}systemInformationBlockType3
+         Name{4, 1}systemInformationBlockType4
+         Name{4, 1}systemInformationBlockType5
+         Name{4, 1}systemInformationBlockType6
+         Name{4, 1}systemInformationBlockType7
+         Name{4, 1}dummy
+         Name{4, 1}dummy2
+         Name{4, 1}dummy3
+         Name{4, 1}systemInformationBlockType11
+         Name{4, 1}systemInformationBlockType12
+         Name{4, 1}systemInformationBlockType13
+         Name{4, 1}systemInformationBlockType13-1
+         Name{4, 1}systemInformationBlockType13-2
+         Name{4, 1}systemInformationBlockType13-3
+         Name{4, 1}systemInformationBlockType13-4
+         Name{4, 1}systemInformationBlockType14
+         Name{4, 1}systemInformationBlockType15
+         Name{4, 1}systemInformationBlockType15-1
+         Name{4, 1}systemInformationBlockType15-2
+         Name{4, 1}systemInformationBlockType15-3
+         Name{4, 1}systemInformationBlockType16
+         Name{4, 1}systemInformationBlockType17
+         Name{4, 1}systemInformationBlockType15-4
+         Name{4, 1}systemInformationBlockType18
+         Name{4, 1}schedulingBlock1
+         Name{4, 1}schedulingBlock2
+         Name{4, 1}systemInformationBlockType15-5
+         Name{4, 1}systemInformationBlockType5bis
+         Name{4, 1}extensionType
+         {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+         {0, 0}-- they should not be sent. If they are received they should be ignored
+       {3, 1}{2, 1}seg-Count = SegCount
+        {5, 1}Val{4, 1}SegCount = (1..16) INTEGER flexible
+       {3, 1}{3, 1}sib-Data-variable = SIB-Data-variable
+        {5, 1}Bits{4, 1}SIB-Data-variable = BIT STRING (SIZE(1..214))
+       {0, 0}-- Other information elements
+    {4, 1}(10)completeSIB = CompleteSIB
+     {5, 1}CompleteSIB = SEQUENCE
+      {3, 1}{1, 1}sib-Type = SIB-Type
+       {5, 1}SIB-Type = ENUMERATED
+        Name{4, 1}masterInformationBlock
+        Name{4, 1}systemInformationBlockType1
+        Name{4, 1}systemInformationBlockType2
+        Name{4, 1}systemInformationBlockType3
+        Name{4, 1}systemInformationBlockType4
+        Name{4, 1}systemInformationBlockType5
+        Name{4, 1}systemInformationBlockType6
+        Name{4, 1}systemInformationBlockType7
+        Name{4, 1}dummy
+        Name{4, 1}dummy2
+        Name{4, 1}dummy3
+        Name{4, 1}systemInformationBlockType11
+        Name{4, 1}systemInformationBlockType12
+        Name{4, 1}systemInformationBlockType13
+        Name{4, 1}systemInformationBlockType13-1
+        Name{4, 1}systemInformationBlockType13-2
+        Name{4, 1}systemInformationBlockType13-3
+        Name{4, 1}systemInformationBlockType13-4
+        Name{4, 1}systemInformationBlockType14
+        Name{4, 1}systemInformationBlockType15
+        Name{4, 1}systemInformationBlockType15-1
+        Name{4, 1}systemInformationBlockType15-2
+        Name{4, 1}systemInformationBlockType15-3
+        Name{4, 1}systemInformationBlockType16
+        Name{4, 1}systemInformationBlockType17
+        Name{4, 1}systemInformationBlockType15-4
+        Name{4, 1}systemInformationBlockType18
+        Name{4, 1}schedulingBlock1
+        Name{4, 1}schedulingBlock2
+        Name{4, 1}systemInformationBlockType15-5
+        Name{4, 1}systemInformationBlockType5bis
+        Name{4, 1}extensionType
+        {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+        {0, 0}-- they should not be sent. If they are received they should be ignored
+      {3, 1}{2, 1}Bits{4, 1}sib-Data-fixed = BIT STRING (SIZE(226))
+      {0, 0}-- Other information elements
+      {0, 0}-- For sib-Data-fixed, in case the SIB data is less than 226 bits, padding
+      {0, 0}-- shall be used. The same padding bits shall be used as defined in clause 12.1
+    {4, 1}(11)lastSegment = LastSegment
+     {5, 1}LastSegment = SEQUENCE
+      {3, 1}{1, 1}sib-Type = SIB-Type
+       {5, 1}SIB-Type = ENUMERATED
+        Name{4, 1}masterInformationBlock
+        Name{4, 1}systemInformationBlockType1
+        Name{4, 1}systemInformationBlockType2
+        Name{4, 1}systemInformationBlockType3
+        Name{4, 1}systemInformationBlockType4
+        Name{4, 1}systemInformationBlockType5
+        Name{4, 1}systemInformationBlockType6
+        Name{4, 1}systemInformationBlockType7
+        Name{4, 1}dummy
+        Name{4, 1}dummy2
+        Name{4, 1}dummy3
+        Name{4, 1}systemInformationBlockType11
+        Name{4, 1}systemInformationBlockType12
+        Name{4, 1}systemInformationBlockType13
+        Name{4, 1}systemInformationBlockType13-1
+        Name{4, 1}systemInformationBlockType13-2
+        Name{4, 1}systemInformationBlockType13-3
+        Name{4, 1}systemInformationBlockType13-4
+        Name{4, 1}systemInformationBlockType14
+        Name{4, 1}systemInformationBlockType15
+        Name{4, 1}systemInformationBlockType15-1
+        Name{4, 1}systemInformationBlockType15-2
+        Name{4, 1}systemInformationBlockType15-3
+        Name{4, 1}systemInformationBlockType16
+        Name{4, 1}systemInformationBlockType17
+        Name{4, 1}systemInformationBlockType15-4
+        Name{4, 1}systemInformationBlockType18
+        Name{4, 1}schedulingBlock1
+        Name{4, 1}schedulingBlock2
+        Name{4, 1}systemInformationBlockType15-5
+        Name{4, 1}systemInformationBlockType5bis
+        Name{4, 1}extensionType
+        {0, 0}-- dummy, dummy2 and dummy3 are not used in this version of the specification,
+        {0, 0}-- they should not be sent. If they are received they should be ignored
+      {3, 1}{2, 1}segmentIndex = SegmentIndex
+       {5, 1}Val{4, 1}SegmentIndex = (1..15) INTEGER flexible
+      {3, 1}{3, 1}sib-Data-fixed = SIB-Data-fixed
+       {5, 1}Bits{4, 1}SIB-Data-fixed = BIT STRING (SIZE(222))
+      {0, 0}-- Other information elements
+      {0, 0}-- For sib-Data-fixed, in case the SIB data is less than 222 bits, padding
+      {0, 0}-- shall be used. The same padding bits shall be used as defined in clause 12.1
+    {4, 1}(12)spare5 = NULL
+    {4, 1}(13)spare4 = NULL
+    {4, 1}(14)spare3 = NULL
+    {4, 1}(15)spare2 = NULL
+    {4, 1}(16)spare1 = NULL
+   {0, 0}-- Other information elements

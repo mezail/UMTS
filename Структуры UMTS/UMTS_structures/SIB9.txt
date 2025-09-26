@@ -1,0 +1,18 @@
+SysInfoType9 = SEQUENCE
+ {3, 1}{1, 1}dummy = CPCH-PersistenceLevelsList
+  {5, 1}CPCH-PersistenceLevelsList = SEQUENCE (SIZE(1..maxCPCHsets=16)) OF
+   {4, 1}{X, 1}Field = CPCH-PersistenceLevels
+    {5, 1}CPCH-PersistenceLevels = SEQUENCE
+     {3, 1}{1, 1}cpch-SetID = CPCH-SetID
+      {5, 1}Val{4, 1}CPCH-SetID = (1..maxCPCHsets=16) INTEGER flexible
+     {3, 1}{2, 1}dynamicPersistenceLevelTF-List = DynamicPersistenceLevelTF-List
+      {5, 1}DynamicPersistenceLevelTF-List = SEQUENCE (SIZE(1..maxTF-CPCH=16)) OF
+       {4, 1}{X, 1}Field = DynamicPersistenceLevel
+        {5, 1}Val{4, 1}DynamicPersistenceLevel = (1..8) INTEGER flexible
+ {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- This IE is not used in this version of the specification.
+ {0, 0}-- It was kept only for backwards compatibility reasons
+ {0, 0}-- Physical channel IEs
+ {0, 0}-- dummy is not used in this version of the specification and
+ {0, 0}-- it should be ignored by the receiver.
+ {0, 0}-- Extension mechanism for non- release99 information

@@ -1,0 +1,8 @@
+SysInfoType2 = SEQUENCE
+ {3, 1}{1, 1}ura-IdentityList = URA-IdentityList
+  {5, 1}URA-IdentityList = SEQUENCE (SIZE(1..maxURA=8)) OF
+   {4, 1}{X, 1}Field = URA-Identity
+    {5, 1}Bits{4, 1}URA-Identity = BIT STRING (SIZE(16))
+ {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- UTRAN mobility IEs
+ {0, 0}-- Extension mechanism for non- release99 information

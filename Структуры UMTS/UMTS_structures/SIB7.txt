@@ -1,0 +1,20 @@
+SysInfoType7 = SEQUENCE
+ {3, 1}{1, 1}modeSpecificInfo = CHOICE
+  {4, 1}(1)fdd = SEQUENCE
+   {3, 1}{1, 1}ul-Interference = UL-Interference
+    {5, 1}Val{4, 1}UL-Interference = (-110..-70) INTEGER flexible
+  {4, 1}(2)tdd = NULL
+ {3, 1}{2, 1}prach-Information-SIB5-List = DynamicPersistenceLevelList
+  {5, 1}DynamicPersistenceLevelList = SEQUENCE (SIZE(1..maxPRACH=16)) OF
+   {4, 1}{X, 1}Field = DynamicPersistenceLevel
+    {5, 1}Val{4, 1}DynamicPersistenceLevel = (1..8) INTEGER flexible
+ {3, 1}{3, 1}prach-Information-SIB6-List = DynamicPersistenceLevelList    OPTIONAL
+  {5, 1}DynamicPersistenceLevelList = SEQUENCE (SIZE(1..maxPRACH=16)) OF
+   {4, 1}{X, 1}Field = DynamicPersistenceLevel
+    {5, 1}Val{4, 1}DynamicPersistenceLevel = (1..8) INTEGER flexible
+ {3, 1}{4, 1}expirationTimeFactor = ExpirationTimeFactor    OPTIONAL
+  {5, 1}Val{4, 1}ExpirationTimeFactor = (1..8) INTEGER flexible
+   {0, 0}--Actual value = 2^(IE value) 
+ {3, 1}{5, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- Physical channel IEs
+ {0, 0}-- Extension mechanism for non- release99 information

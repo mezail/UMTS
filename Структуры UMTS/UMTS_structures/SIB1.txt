@@ -1,0 +1,285 @@
+SysInfoType1 = SEQUENCE
+ {3, 1}{1, 1}cn-CommonGSM-MAP-NAS-SysInfo = NAS-SystemInformationGSM-MAP
+  {5, 1}Val{4, 1}{X, 1}NAS-SystemInformationGSM-MAP = OCTET STRING (SIZE(1..8))
+ {3, 1}{2, 1}cn-DomainSysInfoList = CN-DomainSysInfoList
+  {5, 1}CN-DomainSysInfoList = SEQUENCE (SIZE(1..maxCNdomains=4)) OF
+   {4, 1}{X, 1}Field = CN-DomainSysInfo
+    {5, 1}CN-DomainSysInfo = SEQUENCE
+     {3, 1}{1, 1}cn-DomainIdentity = CN-DomainIdentity
+      {5, 1}CN-DomainIdentity = ENUMERATED
+       Name{4, 1}cs-domain
+       Name{4, 1}ps-domain
+     {3, 1}{2, 1}cn-Type = CHOICE
+      {4, 1}(1)gsm-MAP = NAS-SystemInformationGSM-MAP
+       {5, 1}Val{4, 1}{X, 1}NAS-SystemInformationGSM-MAP = OCTET STRING (SIZE(1..8))
+      {4, 1}(2)ansi-41 = NAS-SystemInformationANSI-41
+       {5, 1}NAS-SystemInformationANSI-41 = ANSI-41-NAS-Parameter
+        {5, 1}Bits{4, 1}ANSI-41-NAS-Parameter = BIT STRING (SIZE(1..2048))
+     {3, 1}{3, 1}cn-DRX-CycleLengthCoeff = CN-DRX-CycleLengthCoefficient
+      {5, 1}Val{4, 1}CN-DRX-CycleLengthCoefficient = (6..9) INTEGER flexible
+ {3, 1}{3, 1}ue-ConnTimersAndConstants = UE-ConnTimersAndConstants    OPTIONAL
+  {5, 1}UE-ConnTimersAndConstants = SEQUENCE
+   {3, 1}{1, 1}t-301 = T-301    DEFAULT ms2000(ENUMERATED)
+    {5, 1}T-301 = ENUMERATED
+     Name{4, 1}ms100
+     Name{4, 1}ms200
+     Name{4, 1}ms400
+     Name{4, 1}ms600
+     Name{4, 1}ms800
+     Name{4, 1}ms1000
+     Name{4, 1}ms1200
+     Name{4, 1}ms1400
+     Name{4, 1}ms1600
+     Name{4, 1}ms1800
+     Name{4, 1}ms2000
+     Name{4, 1}ms3000
+     Name{4, 1}ms4000
+     Name{4, 1}ms6000
+     Name{4, 1}ms8000
+     Name{4, 1}spare
+   {3, 1}{2, 1}n-301 = N-301    DEFAULT 2 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}N-301 = (0..7) INTEGER flexible
+   {3, 1}{3, 1}t-302 = T-302    DEFAULT ms4000(ENUMERATED)
+    {5, 1}T-302 = ENUMERATED
+     Name{4, 1}ms100
+     Name{4, 1}ms200
+     Name{4, 1}ms400
+     Name{4, 1}ms600
+     Name{4, 1}ms800
+     Name{4, 1}ms1000
+     Name{4, 1}ms1200
+     Name{4, 1}ms1400
+     Name{4, 1}ms1600
+     Name{4, 1}ms1800
+     Name{4, 1}ms2000
+     Name{4, 1}ms3000
+     Name{4, 1}ms4000
+     Name{4, 1}ms6000
+     Name{4, 1}ms8000
+     Name{4, 1}spare
+   {3, 1}{4, 1}n-302 = N-302    DEFAULT 3 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}N-302 = (0..7) INTEGER flexible
+   {3, 1}{5, 1}t-304 = T-304    DEFAULT ms2000(ENUMERATED)
+    {5, 1}T-304 = ENUMERATED
+     Name{4, 1}ms100
+     Name{4, 1}ms200
+     Name{4, 1}ms400
+     Name{4, 1}ms1000
+     Name{4, 1}ms2000
+     Name{4, 1}spare3
+     Name{4, 1}spare2
+     Name{4, 1}spare1
+   {3, 1}{6, 1}n-304 = N-304    DEFAULT 2 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}N-304 = (0..7) INTEGER flexible
+   {3, 1}{7, 1}t-305 = T-305    DEFAULT m30(ENUMERATED)
+    {5, 1}T-305 = ENUMERATED
+     Name{4, 1}noUpdate
+     Name{4, 1}m5
+     Name{4, 1}m10
+     Name{4, 1}m30
+     Name{4, 1}m60
+     Name{4, 1}m120
+     Name{4, 1}m360
+     Name{4, 1}m720
+   {3, 1}{8, 1}t-307 = T-307    DEFAULT s30(ENUMERATED)
+    {5, 1}T-307 = ENUMERATED
+     Name{4, 1}s5
+     Name{4, 1}s10
+     Name{4, 1}s15
+     Name{4, 1}s20
+     Name{4, 1}s30
+     Name{4, 1}s40
+     Name{4, 1}s50
+     Name{4, 1}spare
+   {3, 1}{9, 1}t-308 = T-308    DEFAULT ms160(ENUMERATED)
+    {5, 1}T-308 = ENUMERATED
+     Name{4, 1}ms40
+     Name{4, 1}ms80
+     Name{4, 1}ms160
+     Name{4, 1}ms320
+   {3, 1}{10, 1}t-309 = T-309    DEFAULT 5 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}T-309 = (1..8) INTEGER flexible
+   {3, 1}{11, 1}t-310 = T-310    DEFAULT ms160(ENUMERATED)
+    {5, 1}T-310 = ENUMERATED
+     Name{4, 1}ms40
+     Name{4, 1}ms80
+     Name{4, 1}ms120
+     Name{4, 1}ms160
+     Name{4, 1}ms200
+     Name{4, 1}ms240
+     Name{4, 1}ms280
+     Name{4, 1}ms320
+   {3, 1}{12, 1}n-310 = N-310    DEFAULT 4 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}N-310 = (0..7) INTEGER flexible
+   {3, 1}{13, 1}t-311 = T-311    DEFAULT ms2000(ENUMERATED)
+    {5, 1}T-311 = ENUMERATED
+     Name{4, 1}ms250
+     Name{4, 1}ms500
+     Name{4, 1}ms750
+     Name{4, 1}ms1000
+     Name{4, 1}ms1250
+     Name{4, 1}ms1500
+     Name{4, 1}ms1750
+     Name{4, 1}ms2000
+   {3, 1}{14, 1}t-312 = T-312    DEFAULT 1 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}T-312 = (0..15) INTEGER flexible
+     {0, 0}-- The value 0 for T-312 is not used in this version of the specification
+   {3, 1}{15, 1}n-312 = N-312    DEFAULT s1(ENUMERATED)
+    {5, 1}N-312 = ENUMERATED
+     Name{4, 1}s1
+     Name{4, 1}s50
+     Name{4, 1}s100
+     Name{4, 1}s200
+     Name{4, 1}s400
+     Name{4, 1}s600
+     Name{4, 1}s800
+     Name{4, 1}s1000
+   {3, 1}{16, 1}t-313 = T-313    DEFAULT 3 (INTEGER fixed or flexible)
+    {5, 1}Val{4, 1}T-313 = (0..15) INTEGER flexible
+   {3, 1}{17, 1}n-313 = N-313    DEFAULT s20(ENUMERATED)
+    {5, 1}N-313 = ENUMERATED
+     Name{4, 1}s1
+     Name{4, 1}s2
+     Name{4, 1}s4
+     Name{4, 1}s10
+     Name{4, 1}s20
+     Name{4, 1}s50
+     Name{4, 1}s100
+     Name{4, 1}s200
+   {3, 1}{18, 1}t-314 = T-314    DEFAULT s12(ENUMERATED)
+    {5, 1}T-314 = ENUMERATED
+     Name{4, 1}s0
+     Name{4, 1}s2
+     Name{4, 1}s4
+     Name{4, 1}s6
+     Name{4, 1}s8
+     Name{4, 1}s12
+     Name{4, 1}s16
+     Name{4, 1}s20
+   {3, 1}{19, 1}t-315 = T-315    DEFAULT s180(ENUMERATED)
+    {5, 1}T-315 = ENUMERATED
+     Name{4, 1}s0
+     Name{4, 1}s10
+     Name{4, 1}s30
+     Name{4, 1}s60
+     Name{4, 1}s180
+     Name{4, 1}s600
+     Name{4, 1}s1200
+     Name{4, 1}s1800
+   {3, 1}{20, 1}n-315 = N-315    DEFAULT s1(ENUMERATED)
+    {5, 1}N-315 = ENUMERATED
+     Name{4, 1}s1
+     Name{4, 1}s50
+     Name{4, 1}s100
+     Name{4, 1}s200
+     Name{4, 1}s400
+     Name{4, 1}s600
+     Name{4, 1}s800
+     Name{4, 1}s1000
+   {3, 1}{21, 1}t-316 = T-316    DEFAULT s30(ENUMERATED)
+    {5, 1}T-316 = ENUMERATED
+     Name{4, 1}s0
+     Name{4, 1}s10
+     Name{4, 1}s20
+     Name{4, 1}s30
+     Name{4, 1}s40
+     Name{4, 1}s50
+     Name{4, 1}s-inf
+     Name{4, 1}spare
+   {3, 1}{22, 1}t-317 = T-317    DEFAULT infinity4(ENUMERATED)
+    {5, 1}T-317 = ENUMERATED
+     Name{4, 1}infinity0
+     Name{4, 1}infinity1
+     Name{4, 1}infinity2
+     Name{4, 1}infinity3
+     Name{4, 1}infinity4
+     Name{4, 1}infinity5
+     Name{4, 1}infinity6
+     Name{4, 1}infinity7
+     {0, 0}-- All the values are changed to "infinity" in Rel-5
+   {0, 0}-- Optional is used also for parameters for which the default value is the last one read in SIB1
+   {0, 0}-- t-301 and n-301 should not be used by the UE in this version of the specification
+   {0, 0}-- n-312 shall be ignored if n-312 in UE-ConnTimersAndConstants-v3a0ext is present, and the
+   {0, 0}-- value of that element shall be used instead.
+   {0, 0}-- n-315 shall be ignored if n-315 in UE-ConnTimersAndConstants-v3a0ext is present, and the
+   {0, 0}-- value of that element shall be used instead.
+ {3, 1}{4, 1}ue-IdleTimersAndConstants = UE-IdleTimersAndConstants    OPTIONAL
+  {5, 1}UE-IdleTimersAndConstants = SEQUENCE
+   {3, 1}{1, 1}t-300 = T-300
+    {5, 1}T-300 = ENUMERATED
+     Name{4, 1}ms100
+     Name{4, 1}ms200
+     Name{4, 1}ms400
+     Name{4, 1}ms600
+     Name{4, 1}ms800
+     Name{4, 1}ms1000
+     Name{4, 1}ms1200
+     Name{4, 1}ms1400
+     Name{4, 1}ms1600
+     Name{4, 1}ms1800
+     Name{4, 1}ms2000
+     Name{4, 1}ms3000
+     Name{4, 1}ms4000
+     Name{4, 1}ms6000
+     Name{4, 1}ms8000
+   {3, 1}{2, 1}n-300 = N-300
+    {5, 1}Val{4, 1}N-300 = (0..7) INTEGER flexible
+   {3, 1}{3, 1}t-312 = T-312
+    {5, 1}Val{4, 1}T-312 = (0..15) INTEGER flexible
+     {0, 0}-- The value 0 for T-312 is not used in this version of the specification
+   {3, 1}{4, 1}n-312 = N-312
+    {5, 1}N-312 = ENUMERATED
+     Name{4, 1}s1
+     Name{4, 1}s50
+     Name{4, 1}s100
+     Name{4, 1}s200
+     Name{4, 1}s400
+     Name{4, 1}s600
+     Name{4, 1}s800
+     Name{4, 1}s1000
+   {0, 0}-- n-312 shall be ignored if n-312 in UE-IdleTimersAndConstants-v3a0ext is present, and the
+   {0, 0}-- value of that element shall be used instead.
+ {3, 1}{5, 1}v3a0NonCriticalExtensions = SEQUENCE    OPTIONAL
+  {3, 1}{1, 1}sysInfoType1-v3a0ext = SysInfoType1-v3a0ext-IEs
+   {5, 1}SysInfoType1-v3a0ext-IEs = SEQUENCE
+    {3, 1}{1, 1}ue-ConnTimersAndConstants-v3a0ext = UE-ConnTimersAndConstants-v3a0ext
+     {5, 1}UE-ConnTimersAndConstants-v3a0ext = SEQUENCE
+      {3, 1}{1, 1}n-312 = N-312ext    OPTIONAL
+       {5, 1}N-312ext = ENUMERATED
+        Name{4, 1}s2
+        Name{4, 1}s4
+        Name{4, 1}s10
+        Name{4, 1}s20
+      {3, 1}{2, 1}n-315 = N-315ext    OPTIONAL
+       {5, 1}N-315ext = ENUMERATED
+        Name{4, 1}s2
+        Name{4, 1}s4
+        Name{4, 1}s10
+        Name{4, 1}s20
+    {3, 1}{2, 1}ue-IdleTimersAndConstants-v3a0ext = UE-IdleTimersAndConstants-v3a0ext
+     {5, 1}UE-IdleTimersAndConstants-v3a0ext = SEQUENCE
+      {3, 1}{1, 1}n-312 = N-312ext    OPTIONAL
+       {5, 1}N-312ext = ENUMERATED
+        Name{4, 1}s2
+        Name{4, 1}s4
+        Name{4, 1}s10
+        Name{4, 1}s20
+  {3, 1}{2, 1}v860NonCriticalExtentions = SEQUENCE    OPTIONAL
+   {3, 1}{1, 1}sysInfoType1-v860ext = SysInfoType1-v860ext-IEs
+    {5, 1}SysInfoType1-v860ext-IEs = SEQUENCE
+     {3, 1}{1, 1}ue-ConnTimersAndConstants = UE-ConnTimersAndConstants-v860ext
+      {5, 1}UE-ConnTimersAndConstants-v860ext = SEQUENCE
+       {3, 1}{1, 1}t-323 = T-323    OPTIONAL
+        {5, 1}T-323 = ENUMERATED
+         Name{4, 1}s0
+         Name{4, 1}s5
+         Name{4, 1}s10
+         Name{4, 1}s20
+         Name{4, 1}s30
+         Name{4, 1}s60
+         Name{4, 1}s90
+         Name{4, 1}s120
+   {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- Core network IEs
+ {0, 0}-- User equipment IEs
+ {0, 0}-- Extension mechanism for non- release99 information

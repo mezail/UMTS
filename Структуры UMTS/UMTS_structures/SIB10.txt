@@ -1,0 +1,18 @@
+SysInfoType10 = SEQUENCE
+ {3, 1}{1, 1}dummy = DRAC-SysInfoList
+  {5, 1}DRAC-SysInfoList = SEQUENCE (SIZE(1..maxDRACclasses=8)) OF
+   {4, 1}{X, 1}Field = DRAC-SysInfo
+    {5, 1}DRAC-SysInfo = SEQUENCE
+     {3, 1}{1, 1}transmissionProbability = TransmissionProbability
+      {5, 1}Val{4, 1}TransmissionProbability = (1..8) INTEGER flexible
+       {0, 0}-- Actual value TransmissionProbability = IE value * 0.125
+     {3, 1}{2, 1}maximumBitRate = MaximumBitRate
+      {5, 1}Val{4, 1}MaximumBitRate = (0..32) INTEGER flexible
+       {0, 0}-- Actual value MaximumBitRate = IE value * 16
+ {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+ {0, 0}-- This IE is not used in this version of the specification.
+ {0, 0}-- It was kept only for backwards compatibility reasons
+ {0, 0}-- User equipment IEs
+ {0, 0}-- dummy is not used in this version of the specification, it should
+ {0, 0}-- not be sent and if received it should be ignored.
+ {0, 0}-- Extension mechanism for non- release99 information

@@ -1,0 +1,621 @@
+UL-CCCH-Message = SEQUENCE
+ {3, 1}{1, 1}integrityCheckInfo = IntegrityCheckInfo    OPTIONAL
+  {5, 1}IntegrityCheckInfo = SEQUENCE
+   {3, 1}{1, 1}messageAuthenticationCode = MessageAuthenticationCode
+    {5, 1}Bits{4, 1}MessageAuthenticationCode = BIT STRING (SIZE(32))
+   {3, 1}{2, 1}rrc-MessageSequenceNumber = RRC-MessageSequenceNumber
+    {5, 1}Val{4, 1}RRC-MessageSequenceNumber = (0..15) INTEGER flexible
+ {3, 1}{2, 1}message = UL-CCCH-MessageType
+  {5, 1}UL-CCCH-MessageType = CHOICE
+   {4, 1}(1)cellUpdate = CellUpdate
+    {5, 1}CellUpdate = SEQUENCE
+     {3, 1}{1, 1}u-RNTI = U-RNTI
+      {5, 1}U-RNTI = SEQUENCE
+       {3, 1}{1, 1}srnc-Identity = SRNC-Identity
+        {5, 1}Bits{4, 1}SRNC-Identity = BIT STRING (SIZE(12))
+       {3, 1}{2, 1}s-RNTI = S-RNTI
+        {5, 1}Bits{4, 1}S-RNTI = BIT STRING (SIZE(20))
+     {3, 1}{2, 1}startList = STARTList
+      {5, 1}STARTList = SEQUENCE (SIZE(1..maxCNdomains=4)) OF
+       {4, 1}{X, 1}Field = STARTSingle
+        {5, 1}STARTSingle = SEQUENCE
+         {3, 1}{1, 1}cn-DomainIdentity = CN-DomainIdentity
+          {5, 1}CN-DomainIdentity = ENUMERATED
+           Name{4, 1}cs-domain
+           Name{4, 1}ps-domain
+         {3, 1}{2, 1}start-Value = START-Value
+          {5, 1}Bits{4, 1}START-Value = BIT STRING (SIZE(20))
+     {3, 1}{3, 1}Val{4, 1}am-RLC-ErrorIndicationRb2-3or4 = BOOLEAN
+     {3, 1}{4, 1}Val{4, 1}am-RLC-ErrorIndicationRb5orAbove = BOOLEAN
+     {3, 1}{5, 1}cellUpdateCause = CellUpdateCause
+      {5, 1}CellUpdateCause = ENUMERATED
+       Name{4, 1}cellReselection
+       Name{4, 1}periodicalCellUpdate
+       Name{4, 1}uplinkDataTransmission
+       Name{4, 1}utran-pagingResponse
+       Name{4, 1}re-enteredServiceArea
+       Name{4, 1}radiolinkFailure
+       Name{4, 1}rlc-unrecoverableError
+       Name{4, 1}cellUpdateCause-ext
+       {0, 0}-- If the IE CellUpdateCause has the value 'cellUpdateCause-ext', the actual value is
+       {0, 0}-- defined in the IE CellUpdateCause-ext.
+     {3, 1}{6, 1}failureCause = FailureCauseWithProtErrTrId    OPTIONAL
+      {5, 1}FailureCauseWithProtErrTrId = SEQUENCE
+       {3, 1}{1, 1}rrc-TransactionIdentifier = RRC-TransactionIdentifier
+        {5, 1}Val{4, 1}RRC-TransactionIdentifier = (0..3) INTEGER flexible
+       {3, 1}{2, 1}failureCause = FailureCauseWithProtErr
+        {5, 1}FailureCauseWithProtErr = CHOICE
+         {4, 1}(1)configurationUnsupported = NULL
+         {4, 1}(2)physicalChannelFailure = NULL
+         {4, 1}(3)incompatibleSimultaneousReconfiguration = NULL
+         {4, 1}(4)compressedModeRuntimeError = TGPSI
+          {5, 1}Val{4, 1}TGPSI = (1..maxTGPS=6) INTEGER flexible
+         {4, 1}(5)protocolError = ProtocolErrorInformation
+          {5, 1}ProtocolErrorInformation = SEQUENCE
+           {3, 1}{1, 1}diagnosticsType = CHOICE
+            {4, 1}(1)type1 = SEQUENCE
+             {3, 1}{1, 1}protocolErrorCause = ProtocolErrorCause
+              {5, 1}ProtocolErrorCause = ENUMERATED
+               Name{4, 1}asn1-ViolationOrEncodingError
+               Name{4, 1}messageTypeNonexistent
+               Name{4, 1}messageNotCompatibleWithReceiverState
+               Name{4, 1}ie-ValueNotComprehended
+               Name{4, 1}informationElementMissing
+               Name{4, 1}messageExtensionNotComprehended
+               Name{4, 1}spare2
+               Name{4, 1}spare1
+            {4, 1}(2)spare = NULL
+         {4, 1}(6)cellUpdateOccurred = NULL
+         {4, 1}(7)invalidConfiguration = NULL
+         {4, 1}(8)configurationIncomplete = NULL
+         {4, 1}(9)unsupportedMeasurement = NULL
+         {4, 1}(10)mbmsSessionAlreadyReceivedCorrectly = NULL
+         {4, 1}(11)lowerPriorityMBMSService = NULL
+         {4, 1}(12)spare5 = NULL
+         {4, 1}(13)spare4 = NULL
+         {4, 1}(14)spare3 = NULL
+         {4, 1}(15)spare2 = NULL
+         {4, 1}(16)spare1 = NULL
+     {3, 1}{7, 1}rb-timer-indicator = Rb-timer-indicator
+      {5, 1}Rb-timer-indicator = SEQUENCE
+       {3, 1}{1, 1}Val{4, 1}t314-expired = BOOLEAN
+       {3, 1}{2, 1}Val{4, 1}t315-expired = BOOLEAN
+     {3, 1}{8, 1}measuredResultsOnRACH = MeasuredResultsOnRACH    OPTIONAL
+      {5, 1}MeasuredResultsOnRACH = SEQUENCE
+       {3, 1}{1, 1}currentCell = SEQUENCE
+        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+         {4, 1}(1)fdd = SEQUENCE
+          {3, 1}{1, 1}measurementQuantity = CHOICE
+           {4, 1}(1)cpich-Ec-N0 = CPICH-Ec-N0
+            {5, 1}Val{4, 1}CPICH-Ec-N0 = (0..63) INTEGER flexible
+             {0, 0}-- SPARE: CPICH-Ec-No, Max = 49
+             {0, 0}-- Values above Max are spare
+           {4, 1}(2)cpich-RSCP = CPICH-RSCP
+            {5, 1}Val{4, 1}CPICH-RSCP = (0..127) INTEGER flexible
+             {0, 0}-- SPARE: CPICH- RSCP, Max = 91
+             {0, 0}-- Values above Max are spare
+           {4, 1}(3)pathloss = Pathloss
+            {5, 1}Val{4, 1}Pathloss = (46..173) INTEGER flexible
+             {0, 0}-- SPARE: Pathloss, Max = 158
+             {0, 0}-- Values above Max are spare
+           {4, 1}(4)spare = NULL
+         {4, 1}(2)tdd = SEQUENCE
+          {3, 1}{1, 1}timeslotISCP = TimeslotISCP-List    OPTIONAL
+           {5, 1}TimeslotISCP-List = SEQUENCE (SIZE(1..maxTS=14)) OF
+            {0, 0}-- TimeslotISCP-List shall not include more than 6 elements in 1.28Mcps TDD mode.
+            {4, 1}{X, 1}Field = TimeslotISCP
+             {5, 1}Val{4, 1}TimeslotISCP = (0..127) INTEGER flexible
+              {0, 0}-- SPARE: TimeslotISCP, Max = 91
+              {0, 0}-- Values above Max are spare
+          {3, 1}{2, 1}primaryCCPCH-RSCP = PrimaryCCPCH-RSCP    OPTIONAL
+           {5, 1}Val{4, 1}PrimaryCCPCH-RSCP = (0..127) INTEGER flexible
+            {0, 0}-- SPARE: PrimaryCCPCH-RSCP, Max = 91
+            {0, 0}-- Values above Max are spare
+          {0, 0}-- For 3.84 Mcps, 7.68 Mcps and 1.28 Mcps TDD
+       {3, 1}{2, 1}monitoredCells = MonitoredCellRACH-List    OPTIONAL
+        {5, 1}MonitoredCellRACH-List = SEQUENCE (SIZE(1..8)) OF
+         {4, 1}{X, 1}Field = MonitoredCellRACH-Result
+          {5, 1}MonitoredCellRACH-Result = SEQUENCE
+           {3, 1}{1, 1}sfn-SFN-ObsTimeDifference = SFN-SFN-ObsTimeDifference    OPTIONAL
+            {5, 1}SFN-SFN-ObsTimeDifference = CHOICE
+             {4, 1}(1)type1 = SFN-SFN-ObsTimeDifference1
+              {5, 1}Val{4, 1}SFN-SFN-ObsTimeDifference1 = (0..16777215) INTEGER flexible
+               {0, 0}-- SPARE: SFN-SFN-ObsTimeDifference1, Max = 9830399
+               {0, 0}-- For 1.28Mcps TDD, Max value of SFN-SFN-ObsTimeDifference1 is 3276799.
+               {0, 0}-- Values above Max are spare
+             {4, 1}(2)type2 = SFN-SFN-ObsTimeDifference2
+              {5, 1}Val{4, 1}SFN-SFN-ObsTimeDifference2 = (0..65535) INTEGER flexible
+               {0, 0}-- SPARE: SFN-SFN-ObsTimeDifference2, Max = 40961
+               {0, 0}-- For 1.28Mcps TDD, Max value of SFN-SFN-ObsTimeDifference2 is 27649.
+               {0, 0}-- Values above Max are spare
+           {3, 1}{2, 1}modeSpecificInfo = CHOICE
+            {4, 1}(1)fdd = SEQUENCE
+             {3, 1}{1, 1}primaryCPICH-Info = PrimaryCPICH-Info
+              {5, 1}PrimaryCPICH-Info = SEQUENCE
+               {3, 1}{1, 1}primaryScramblingCode = PrimaryScramblingCode
+                {5, 1}Val{4, 1}PrimaryScramblingCode = (0..511) INTEGER flexible
+             {3, 1}{2, 1}measurementQuantity = CHOICE    OPTIONAL
+              {4, 1}(1)cpich-Ec-N0 = CPICH-Ec-N0
+               {5, 1}Val{4, 1}CPICH-Ec-N0 = (0..63) INTEGER flexible
+                {0, 0}-- SPARE: CPICH-Ec-No, Max = 49
+                {0, 0}-- Values above Max are spare
+              {4, 1}(2)cpich-RSCP = CPICH-RSCP
+               {5, 1}Val{4, 1}CPICH-RSCP = (0..127) INTEGER flexible
+                {0, 0}-- SPARE: CPICH- RSCP, Max = 91
+                {0, 0}-- Values above Max are spare
+              {4, 1}(3)pathloss = Pathloss
+               {5, 1}Val{4, 1}Pathloss = (46..173) INTEGER flexible
+                {0, 0}-- SPARE: Pathloss, Max = 158
+                {0, 0}-- Values above Max are spare
+              {4, 1}(4)spare = NULL
+            {4, 1}(2)tdd = SEQUENCE
+             {3, 1}{1, 1}cellParametersID = CellParametersID
+              {5, 1}Val{4, 1}CellParametersID = (0..127) INTEGER flexible
+             {3, 1}{2, 1}primaryCCPCH-RSCP = PrimaryCCPCH-RSCP
+              {5, 1}Val{4, 1}PrimaryCCPCH-RSCP = (0..127) INTEGER flexible
+               {0, 0}-- SPARE: PrimaryCCPCH-RSCP, Max = 91
+               {0, 0}-- Values above Max are spare
+     {3, 1}{9, 1}laterNonCriticalExtensions = SEQUENCE    OPTIONAL
+      {3, 1}{1, 1}Bits{4, 1}cellUpdate-r3-add-ext = BIT STRING (SIZE(0))    OPTIONAL
+      {3, 1}{2, 1}v590NonCriticalExtensions = SEQUENCE    OPTIONAL
+       {3, 1}{1, 1}cellUpdate-v590ext = CellUpdate-v590ext
+        {5, 1}CellUpdate-v590ext = SEQUENCE
+         {3, 1}{1, 1}establishmentCause = EstablishmentCause    OPTIONAL
+          {5, 1}EstablishmentCause = ENUMERATED
+           Name{4, 1}originatingConversationalCall
+           Name{4, 1}originatingStreamingCall
+           Name{4, 1}originatingInteractiveCall
+           Name{4, 1}originatingBackgroundCall
+           Name{4, 1}originatingSubscribedTrafficCall
+           Name{4, 1}terminatingConversationalCall
+           Name{4, 1}terminatingStreamingCall
+           Name{4, 1}terminatingInteractiveCall
+           Name{4, 1}terminatingBackgroundCall
+           Name{4, 1}emergencyCall
+           Name{4, 1}interRAT-CellReselection
+           Name{4, 1}interRAT-CellChangeOrder
+           Name{4, 1}registration
+           Name{4, 1}detach
+           Name{4, 1}originatingHighPrioritySignalling
+           Name{4, 1}originatingLowPrioritySignalling
+           Name{4, 1}callRe-establishment
+           Name{4, 1}terminatingHighPrioritySignalling
+           Name{4, 1}terminatingLowPrioritySignalling
+           Name{4, 1}terminatingCauseUnknown
+           Name{4, 1}mbms-Reception
+           Name{4, 1}mbms-PTP-RB-Request
+           Name{4, 1}spare10
+           Name{4, 1}spare9
+           Name{4, 1}spare8
+           Name{4, 1}spare7
+           Name{4, 1}spare6
+           Name{4, 1}spare5
+           Name{4, 1}spare4
+           Name{4, 1}spare3
+           Name{4, 1}spare2
+           Name{4, 1}spare1
+       {3, 1}{2, 1}v690NonCriticalExtensions = SEQUENCE    OPTIONAL
+        {3, 1}{1, 1}cellUpdate-v690ext = CellUpdate-v690ext-IEs
+         {5, 1}CellUpdate-v690ext-IEs = SEQUENCE
+          {3, 1}{1, 1}cellUpdateCause-ext = CellUpdateCause-ext    OPTIONAL
+           {5, 1}CellUpdateCause-ext = ENUMERATED
+            Name{4, 1}mbms-Reception
+            Name{4, 1}mbms-PTP-RB-Request
+            Name{4, 1}dummy
+            Name{4, 1}spare1
+            {0, 0}-- The IE CellUpdateCause-ext shall be present, if the IE CellUpdateCause has the
+            {0, 0}-- value 'cellUpdateCause-ext'.
+            {0, 0}-- dummy is not used in this version of the specification, it should not be sent
+            {0, 0}-- and if received it should be ignored by the receiver.
+          {3, 1}{2, 1}trafficVolumeIndicator = ENUMERATED    OPTIONAL
+           Name{4, 1}true
+          {3, 1}{3, 1}measuredResultsOnRACHinterFreq = MeasuredResultsOnRACHinterFreq    OPTIONAL
+           {5, 1}MeasuredResultsOnRACHinterFreq = SEQUENCE
+            {3, 1}{1, 1}Val{4, 1}interFreqCellIndication-SIB11 = (0..1) INTEGER flexible
+            {3, 1}{2, 1}Val{4, 1}interFreqCellIndication-SIB12 = (0..1) INTEGER flexible
+            {3, 1}{3, 1}interFreqRACHRepCellsList = InterFreqRACHRepCellsList
+             {5, 1}InterFreqRACHRepCellsList = SEQUENCE (SIZE(1..maxFreq=8)) OF
+              {4, 1}{X, 1}Field = InterFreqCellID
+               {5, 1}Val{4, 1}InterFreqCellID = (0..maxCellMeas-1=31) INTEGER flexible
+          {3, 1}{4, 1}reconfigurationStatusIndicator = ENUMERATED    OPTIONAL
+           Name{4, 1}true
+          {0, 0}-- User equipment IEs
+          {0, 0}-- Measurement IEs
+        {3, 1}{2, 1}v6b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+         {3, 1}{1, 1}cellUpdate-v6b0ext = CellUpdate-v6b0ext-IEs
+          {5, 1}CellUpdate-v6b0ext-IEs = SEQUENCE
+           {3, 1}{1, 1}mbmsSelectedServices = MBMS-SelectedServicesShort    OPTIONAL
+            {5, 1}MBMS-SelectedServicesShort = SEQUENCE
+             {3, 1}{1, 1}mbms-SelectedServicesList = MBMS-SelectedServicesListShort
+              {5, 1}MBMS-SelectedServicesListShort = SEQUENCE (SIZE(1..maxMBMSservSelect=8)) OF
+               {4, 1}{X, 1}Field = MBMS-ShortTransmissionID
+                {5, 1}Val{4, 1}MBMS-ShortTransmissionID = (1..maxMBMSservUnmodif=64) INTEGER flexible
+             {3, 1}{2, 1}Val{4, 1}modificationPeriodIdentity = (0..1) INTEGER flexible
+           {0, 0}-- MBMS IEs
+         {3, 1}{2, 1}v770NonCriticalExtensions = SEQUENCE    OPTIONAL
+          {3, 1}{1, 1}cellUpdate-v770ext = CellUpdate-v770ext-IEs
+           {5, 1}CellUpdate-v770ext-IEs = SEQUENCE
+            {3, 1}{1, 1}csCallType = ENUMERATED    OPTIONAL
+             Name{4, 1}speech
+             Name{4, 1}video
+             Name{4, 1}other
+             Name{4, 1}spare
+            {3, 1}{2, 1}hspdschReception-CellFach = ENUMERATED    OPTIONAL
+             Name{4, 1}true
+            {3, 1}{3, 1}ueMobilityStateIndicator = High-MobilityDetected    OPTIONAL
+             {5, 1}High-MobilityDetected = ENUMERATED
+              Name{4, 1}high-MobilityDetected
+            {3, 1}{4, 1}capabilityChangeIndicator = ENUMERATED    OPTIONAL
+             Name{4, 1}true
+            {0, 0}-- User equipment IEs
+          {3, 1}{2, 1}v860NonCriticalExtensions = SEQUENCE    OPTIONAL
+           {3, 1}{1, 1}cellUpdate-v860ext = CellUpdate-v860ext-IEs
+            {5, 1}CellUpdate-v860ext-IEs = SEQUENCE
+             {3, 1}{1, 1}supportOfCommonEDCH = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {3, 1}{2, 1}supportOfHS-DSCHDRXOperation = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {3, 1}{3, 1}supportOfMACiis = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {3, 1}{4, 1}supportOfSPSOperation = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {3, 1}{5, 1}supportOfControlChannelDRXOperation = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {0, 0}-- User equipment IEs
+           {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+      {0, 0}-- Container for additional R99 extensions
+     {0, 0}-- User equipment IEs
+     {0, 0}-- TABULAR: RRC transaction identifier is nested in FailureCauseWithProtErrTrId
+     {0, 0}-- Measurement IEs
+   {4, 1}(2)rrcConnectionRequest = RRCConnectionRequest
+    {5, 1}RRCConnectionRequest = SEQUENCE
+     {3, 1}{1, 1}initialUE-Identity = InitialUE-Identity
+      {5, 1}InitialUE-Identity = CHOICE
+       {4, 1}(1)imsi = IMSI-GSM-MAP
+        {5, 1}IMSI-GSM-MAP = SEQUENCE (SIZE(6..21)) OF
+         {4, 1}{X, 1}Field = Digit
+          {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+       {4, 1}(2)tmsi-and-LAI = TMSI-and-LAI-GSM-MAP
+        {5, 1}TMSI-and-LAI-GSM-MAP = SEQUENCE
+         {3, 1}{1, 1}tmsi = TMSI-GSM-MAP
+          {5, 1}Bits{4, 1}TMSI-GSM-MAP = BIT STRING (SIZE(32))
+         {3, 1}{2, 1}lai = LAI
+          {5, 1}LAI = SEQUENCE
+           {3, 1}{1, 1}plmn-Identity = PLMN-Identity
+            {5, 1}PLMN-Identity = SEQUENCE
+             {3, 1}{1, 1}mcc = MCC
+              {5, 1}MCC = SEQUENCE (SIZE(3)) OF
+               {4, 1}{X, 1}Field = Digit
+                {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+             {3, 1}{2, 1}mnc = MNC
+              {5, 1}MNC = SEQUENCE (SIZE(2..3)) OF
+               {4, 1}{X, 1}Field = Digit
+                {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+           {3, 1}{2, 1}Bits{4, 1}lac = BIT STRING (SIZE(16))
+       {4, 1}(3)p-TMSI-and-RAI = P-TMSI-and-RAI-GSM-MAP
+        {5, 1}P-TMSI-and-RAI-GSM-MAP = SEQUENCE
+         {3, 1}{1, 1}p-TMSI = P-TMSI-GSM-MAP
+          {5, 1}Bits{4, 1}P-TMSI-GSM-MAP = BIT STRING (SIZE(32))
+         {3, 1}{2, 1}rai = RAI
+          {5, 1}RAI = SEQUENCE
+           {3, 1}{1, 1}lai = LAI
+            {5, 1}LAI = SEQUENCE
+             {3, 1}{1, 1}plmn-Identity = PLMN-Identity
+              {5, 1}PLMN-Identity = SEQUENCE
+               {3, 1}{1, 1}mcc = MCC
+                {5, 1}MCC = SEQUENCE (SIZE(3)) OF
+                 {4, 1}{X, 1}Field = Digit
+                  {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+               {3, 1}{2, 1}mnc = MNC
+                {5, 1}MNC = SEQUENCE (SIZE(2..3)) OF
+                 {4, 1}{X, 1}Field = Digit
+                  {5, 1}Val{4, 1}Digit = (0..9) INTEGER flexible
+             {3, 1}{2, 1}Bits{4, 1}lac = BIT STRING (SIZE(16))
+           {3, 1}{2, 1}rac = RoutingAreaCode
+            {5, 1}Bits{4, 1}RoutingAreaCode = BIT STRING (SIZE(8))
+       {4, 1}(4)imei = IMEI
+        {5, 1}IMEI = SEQUENCE (SIZE(15)) OF
+         {4, 1}{X, 1}Field = IMEI-Digit
+          {5, 1}Val{4, 1}IMEI-Digit = (0..15) INTEGER flexible
+       {4, 1}(5)esn-DS-41 = ESN-DS-41
+        {5, 1}Bits{4, 1}ESN-DS-41 = BIT STRING (SIZE(32))
+       {4, 1}(6)imsi-DS-41 = IMSI-DS-41
+        {5, 1}Val{4, 1}{X, 1}IMSI-DS-41 = OCTET STRING (SIZE(5..7))
+       {4, 1}(7)imsi-and-ESN-DS-41 = IMSI-and-ESN-DS-41
+        {5, 1}IMSI-and-ESN-DS-41 = SEQUENCE
+         {3, 1}{1, 1}imsi-DS-41 = IMSI-DS-41
+          {5, 1}Val{4, 1}{X, 1}IMSI-DS-41 = OCTET STRING (SIZE(5..7))
+         {3, 1}{2, 1}esn-DS-41 = ESN-DS-41
+          {5, 1}Bits{4, 1}ESN-DS-41 = BIT STRING (SIZE(32))
+       {4, 1}(8)tmsi-DS-41 = TMSI-DS-41
+        {5, 1}Val{4, 1}{X, 1}TMSI-DS-41 = OCTET STRING (SIZE(2..17))
+     {3, 1}{2, 1}establishmentCause = EstablishmentCause
+      {5, 1}EstablishmentCause = ENUMERATED
+       Name{4, 1}originatingConversationalCall
+       Name{4, 1}originatingStreamingCall
+       Name{4, 1}originatingInteractiveCall
+       Name{4, 1}originatingBackgroundCall
+       Name{4, 1}originatingSubscribedTrafficCall
+       Name{4, 1}terminatingConversationalCall
+       Name{4, 1}terminatingStreamingCall
+       Name{4, 1}terminatingInteractiveCall
+       Name{4, 1}terminatingBackgroundCall
+       Name{4, 1}emergencyCall
+       Name{4, 1}interRAT-CellReselection
+       Name{4, 1}interRAT-CellChangeOrder
+       Name{4, 1}registration
+       Name{4, 1}detach
+       Name{4, 1}originatingHighPrioritySignalling
+       Name{4, 1}originatingLowPrioritySignalling
+       Name{4, 1}callRe-establishment
+       Name{4, 1}terminatingHighPrioritySignalling
+       Name{4, 1}terminatingLowPrioritySignalling
+       Name{4, 1}terminatingCauseUnknown
+       Name{4, 1}mbms-Reception
+       Name{4, 1}mbms-PTP-RB-Request
+       Name{4, 1}spare10
+       Name{4, 1}spare9
+       Name{4, 1}spare8
+       Name{4, 1}spare7
+       Name{4, 1}spare6
+       Name{4, 1}spare5
+       Name{4, 1}spare4
+       Name{4, 1}spare3
+       Name{4, 1}spare2
+       Name{4, 1}spare1
+     {3, 1}{3, 1}protocolErrorIndicator = ProtocolErrorIndicator
+      {5, 1}ProtocolErrorIndicator = ENUMERATED
+       Name{4, 1}noError
+       Name{4, 1}errorOccurred
+     {3, 1}{4, 1}measuredResultsOnRACH = MeasuredResultsOnRACH    OPTIONAL
+      {5, 1}MeasuredResultsOnRACH = SEQUENCE
+       {3, 1}{1, 1}currentCell = SEQUENCE
+        {3, 1}{1, 1}modeSpecificInfo = CHOICE
+         {4, 1}(1)fdd = SEQUENCE
+          {3, 1}{1, 1}measurementQuantity = CHOICE
+           {4, 1}(1)cpich-Ec-N0 = CPICH-Ec-N0
+            {5, 1}Val{4, 1}CPICH-Ec-N0 = (0..63) INTEGER flexible
+             {0, 0}-- SPARE: CPICH-Ec-No, Max = 49
+             {0, 0}-- Values above Max are spare
+           {4, 1}(2)cpich-RSCP = CPICH-RSCP
+            {5, 1}Val{4, 1}CPICH-RSCP = (0..127) INTEGER flexible
+             {0, 0}-- SPARE: CPICH- RSCP, Max = 91
+             {0, 0}-- Values above Max are spare
+           {4, 1}(3)pathloss = Pathloss
+            {5, 1}Val{4, 1}Pathloss = (46..173) INTEGER flexible
+             {0, 0}-- SPARE: Pathloss, Max = 158
+             {0, 0}-- Values above Max are spare
+           {4, 1}(4)spare = NULL
+         {4, 1}(2)tdd = SEQUENCE
+          {3, 1}{1, 1}timeslotISCP = TimeslotISCP-List    OPTIONAL
+           {5, 1}TimeslotISCP-List = SEQUENCE (SIZE(1..maxTS=14)) OF
+            {0, 0}-- TimeslotISCP-List shall not include more than 6 elements in 1.28Mcps TDD mode.
+            {4, 1}{X, 1}Field = TimeslotISCP
+             {5, 1}Val{4, 1}TimeslotISCP = (0..127) INTEGER flexible
+              {0, 0}-- SPARE: TimeslotISCP, Max = 91
+              {0, 0}-- Values above Max are spare
+          {3, 1}{2, 1}primaryCCPCH-RSCP = PrimaryCCPCH-RSCP    OPTIONAL
+           {5, 1}Val{4, 1}PrimaryCCPCH-RSCP = (0..127) INTEGER flexible
+            {0, 0}-- SPARE: PrimaryCCPCH-RSCP, Max = 91
+            {0, 0}-- Values above Max are spare
+          {0, 0}-- For 3.84 Mcps, 7.68 Mcps and 1.28 Mcps TDD
+       {3, 1}{2, 1}monitoredCells = MonitoredCellRACH-List    OPTIONAL
+        {5, 1}MonitoredCellRACH-List = SEQUENCE (SIZE(1..8)) OF
+         {4, 1}{X, 1}Field = MonitoredCellRACH-Result
+          {5, 1}MonitoredCellRACH-Result = SEQUENCE
+           {3, 1}{1, 1}sfn-SFN-ObsTimeDifference = SFN-SFN-ObsTimeDifference    OPTIONAL
+            {5, 1}SFN-SFN-ObsTimeDifference = CHOICE
+             {4, 1}(1)type1 = SFN-SFN-ObsTimeDifference1
+              {5, 1}Val{4, 1}SFN-SFN-ObsTimeDifference1 = (0..16777215) INTEGER flexible
+               {0, 0}-- SPARE: SFN-SFN-ObsTimeDifference1, Max = 9830399
+               {0, 0}-- For 1.28Mcps TDD, Max value of SFN-SFN-ObsTimeDifference1 is 3276799.
+               {0, 0}-- Values above Max are spare
+             {4, 1}(2)type2 = SFN-SFN-ObsTimeDifference2
+              {5, 1}Val{4, 1}SFN-SFN-ObsTimeDifference2 = (0..65535) INTEGER flexible
+               {0, 0}-- SPARE: SFN-SFN-ObsTimeDifference2, Max = 40961
+               {0, 0}-- For 1.28Mcps TDD, Max value of SFN-SFN-ObsTimeDifference2 is 27649.
+               {0, 0}-- Values above Max are spare
+           {3, 1}{2, 1}modeSpecificInfo = CHOICE
+            {4, 1}(1)fdd = SEQUENCE
+             {3, 1}{1, 1}primaryCPICH-Info = PrimaryCPICH-Info
+              {5, 1}PrimaryCPICH-Info = SEQUENCE
+               {3, 1}{1, 1}primaryScramblingCode = PrimaryScramblingCode
+                {5, 1}Val{4, 1}PrimaryScramblingCode = (0..511) INTEGER flexible
+             {3, 1}{2, 1}measurementQuantity = CHOICE    OPTIONAL
+              {4, 1}(1)cpich-Ec-N0 = CPICH-Ec-N0
+               {5, 1}Val{4, 1}CPICH-Ec-N0 = (0..63) INTEGER flexible
+                {0, 0}-- SPARE: CPICH-Ec-No, Max = 49
+                {0, 0}-- Values above Max are spare
+              {4, 1}(2)cpich-RSCP = CPICH-RSCP
+               {5, 1}Val{4, 1}CPICH-RSCP = (0..127) INTEGER flexible
+                {0, 0}-- SPARE: CPICH- RSCP, Max = 91
+                {0, 0}-- Values above Max are spare
+              {4, 1}(3)pathloss = Pathloss
+               {5, 1}Val{4, 1}Pathloss = (46..173) INTEGER flexible
+                {0, 0}-- SPARE: Pathloss, Max = 158
+                {0, 0}-- Values above Max are spare
+              {4, 1}(4)spare = NULL
+            {4, 1}(2)tdd = SEQUENCE
+             {3, 1}{1, 1}cellParametersID = CellParametersID
+              {5, 1}Val{4, 1}CellParametersID = (0..127) INTEGER flexible
+             {3, 1}{2, 1}primaryCCPCH-RSCP = PrimaryCCPCH-RSCP
+              {5, 1}Val{4, 1}PrimaryCCPCH-RSCP = (0..127) INTEGER flexible
+               {0, 0}-- SPARE: PrimaryCCPCH-RSCP, Max = 91
+               {0, 0}-- Values above Max are spare
+     {3, 1}{5, 1}v3d0NonCriticalExtensions = SEQUENCE    OPTIONAL
+      {3, 1}{1, 1}rRCConnectionRequest-v3d0ext = RRCConnectionRequest-v3d0ext-IEs
+       {5, 1}RRCConnectionRequest-v3d0ext-IEs = SEQUENCE
+        {3, 1}{1, 1}uESpecificBehaviourInformation1idle = UESpecificBehaviourInformation1idle    OPTIONAL
+         {5, 1}Bits{4, 1}UESpecificBehaviourInformation1idle = BIT STRING (SIZE(4))
+        {0, 0}-- User equipment IEs
+      {3, 1}{2, 1}v4b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+       {3, 1}{1, 1}rrcConnectionRequest-v4b0ext = RRCConnectionRequest-v4b0ext-IEs
+        {5, 1}RRCConnectionRequest-v4b0ext-IEs = SEQUENCE
+         {3, 1}{1, 1}accessStratumReleaseIndicator = AccessStratumReleaseIndicator
+          {5, 1}AccessStratumReleaseIndicator = ENUMERATED
+           Name{4, 1}rel-4
+           Name{4, 1}rel-5
+           Name{4, 1}rel-6
+           Name{4, 1}rel-7
+           Name{4, 1}rel-8
+           Name{4, 1}spare11
+           Name{4, 1}spare10
+           Name{4, 1}spare9
+           Name{4, 1}spare8
+           Name{4, 1}spare7
+           Name{4, 1}spare6
+           Name{4, 1}spare5
+           Name{4, 1}spare4
+           Name{4, 1}spare3
+           Name{4, 1}spare2
+           Name{4, 1}spare1
+         {0, 0}-- User equipment IEs
+       {3, 1}{2, 1}v590NonCriticalExtensions = SEQUENCE    OPTIONAL
+        {3, 1}{1, 1}rrcConnectionRequest-v590ext = RRCConnectionRequest-v590ext-IEs
+         {5, 1}RRCConnectionRequest-v590ext-IEs = SEQUENCE
+          {3, 1}{1, 1}Val{4, 1}predefinedConfigStatusInfo = BOOLEAN
+          {0, 0}-- User equipment IEs
+        {3, 1}{2, 1}v690NonCriticalExtensions = SEQUENCE    OPTIONAL
+         {3, 1}{1, 1}rrcConnectionRequest-v690ext = RRCConnectionRequest-v690ext-IEs
+          {5, 1}RRCConnectionRequest-v690ext-IEs = SEQUENCE
+           {3, 1}{1, 1}ueCapabilityIndication = ENUMERATED    OPTIONAL
+            Name{4, 1}hsdch
+            Name{4, 1}hsdch-edch
+           {3, 1}{2, 1}measuredResultsOnRACHinterFreq = MeasuredResultsOnRACHinterFreq    OPTIONAL
+            {5, 1}MeasuredResultsOnRACHinterFreq = SEQUENCE
+             {3, 1}{1, 1}Val{4, 1}interFreqCellIndication-SIB11 = (0..1) INTEGER flexible
+             {3, 1}{2, 1}Val{4, 1}interFreqCellIndication-SIB12 = (0..1) INTEGER flexible
+             {3, 1}{3, 1}interFreqRACHRepCellsList = InterFreqRACHRepCellsList
+              {5, 1}InterFreqRACHRepCellsList = SEQUENCE (SIZE(1..maxFreq=8)) OF
+               {4, 1}{X, 1}Field = InterFreqCellID
+                {5, 1}Val{4, 1}InterFreqCellID = (0..maxCellMeas-1=31) INTEGER flexible
+           {3, 1}{3, 1}domainIndicator = CHOICE
+            {4, 1}(1)cs-domain = SEQUENCE
+             {3, 1}{1, 1}csCallType = ENUMERATED
+              Name{4, 1}speech
+              Name{4, 1}video
+              Name{4, 1}other
+              Name{4, 1}spare
+            {4, 1}(2)ps-domain = NULL
+           {0, 0}-- User equipment IEs
+           {0, 0}-- Measurement IEs
+         {3, 1}{2, 1}v6b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+          {3, 1}{1, 1}rrcConnectionRequest-v6b0ext = RRCConnectionRequest-v6b0ext-IEs
+           {5, 1}RRCConnectionRequest-v6b0ext-IEs = SEQUENCE
+            {3, 1}{1, 1}mbmsSelectedServices = MBMS-SelectedServicesShort    OPTIONAL
+             {5, 1}MBMS-SelectedServicesShort = SEQUENCE
+              {3, 1}{1, 1}mbms-SelectedServicesList = MBMS-SelectedServicesListShort
+               {5, 1}MBMS-SelectedServicesListShort = SEQUENCE (SIZE(1..maxMBMSservSelect=8)) OF
+                {4, 1}{X, 1}Field = MBMS-ShortTransmissionID
+                 {5, 1}Val{4, 1}MBMS-ShortTransmissionID = (1..maxMBMSservUnmodif=64) INTEGER flexible
+              {3, 1}{2, 1}Val{4, 1}modificationPeriodIdentity = (0..1) INTEGER flexible
+            {0, 0}-- MBMS IEs
+          {3, 1}{2, 1}v6e0NonCriticalExtensions = SEQUENCE    OPTIONAL
+           {3, 1}{1, 1}rrcConnectionRequest-v6e0ext = RRCConnectionRequest-v6e0ext-IEs
+            {5, 1}RRCConnectionRequest-v6e0ext-IEs = SEQUENCE
+             {3, 1}{1, 1}supportForFDPCH = ENUMERATED    OPTIONAL
+              Name{4, 1}true
+             {0, 0}-- User equipment IEs
+           {3, 1}{2, 1}v770NonCriticalExtensions = SEQUENCE    OPTIONAL
+            {3, 1}{1, 1}rrcConnectionRequest-v770ext = RRCConnectionRequest-v770ext-IEs
+             {5, 1}RRCConnectionRequest-v770ext-IEs = SEQUENCE
+              {3, 1}{1, 1}ueMobilityStateIndicator = High-MobilityDetected    OPTIONAL
+               {5, 1}High-MobilityDetected = ENUMERATED
+                Name{4, 1}high-MobilityDetected
+              {3, 1}{2, 1}hspdschReception-CellFach = ENUMERATED    OPTIONAL
+               Name{4, 1}true
+              {3, 1}{3, 1}mac-ehsSupport = ENUMERATED    OPTIONAL
+               Name{4, 1}true
+              {3, 1}{4, 1}discontinuousDpcchTransmission = ENUMERATED    OPTIONAL
+               Name{4, 1}true
+              {0, 0}-- User equipment IEs
+            {3, 1}{2, 1}v7b0NonCriticalExtensions = SEQUENCE    OPTIONAL
+             {3, 1}{1, 1}rrcConnectionRequest-v7b0ext = RRCConnectionRequest-v7b0ext-IEs
+              {5, 1}RRCConnectionRequest-v7b0ext-IEs = SEQUENCE
+               {3, 1}{1, 1}supportForE-FDPCH = ENUMERATED    OPTIONAL
+                Name{4, 1}true
+               {0, 0}-- User equipment IEs
+             {3, 1}{2, 1}v860NonCriticalExtensions = SEQUENCE    OPTIONAL
+              {3, 1}{1, 1}rrcConnectionRequest-v860ext = RRCConnectionRequest-v860ext-IEs
+               {5, 1}RRCConnectionRequest-v860ext-IEs = SEQUENCE
+                {3, 1}{1, 1}supportOfCommonEDCH = ENUMERATED    OPTIONAL
+                 Name{4, 1}true
+                {3, 1}{2, 1}multiCellSupport = ENUMERATED    OPTIONAL
+                 Name{4, 1}true
+                {3, 1}{3, 1}pre-redirectionInfo = Pre-RedirectionInfo    OPTIONAL
+                 {5, 1}Pre-RedirectionInfo = SEQUENCE
+                  {3, 1}{1, 1}Val{4, 1}supportEUTRA-FDD = BOOLEAN
+                  {3, 1}{2, 1}Val{4, 1}supportEUTRA-TDD = BOOLEAN
+                {3, 1}{4, 1}supportOfMACiis = ENUMERATED    OPTIONAL
+                 Name{4, 1}true
+                {3, 1}{5, 1}supportOfSPSOperation = ENUMERATED    OPTIONAL
+                 Name{4, 1}true
+                {0, 0}-- User equipment IEs
+              {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+         {0, 0}-- Reserved for future non critical extension
+      {0, 0}-- Reserved for future non critical extension
+     {0, 0}-- TABULAR: Integrity protection shall not be performed on this message.
+     {0, 0}-- User equipment IEs
+     {0, 0}-- protocolErrorIndicator is MD, but for compactness reasons no default value
+     {0, 0}-- has been assigned to it.
+     {0, 0}-- Measurement IEs
+     {0, 0}--	Non critical Extensions
+   {4, 1}(3)uraUpdate = URAUpdate
+    {5, 1}URAUpdate = SEQUENCE
+     {3, 1}{1, 1}u-RNTI = U-RNTI
+      {5, 1}U-RNTI = SEQUENCE
+       {3, 1}{1, 1}srnc-Identity = SRNC-Identity
+        {5, 1}Bits{4, 1}SRNC-Identity = BIT STRING (SIZE(12))
+       {3, 1}{2, 1}s-RNTI = S-RNTI
+        {5, 1}Bits{4, 1}S-RNTI = BIT STRING (SIZE(20))
+     {3, 1}{2, 1}ura-UpdateCause = URA-UpdateCause
+      {5, 1}URA-UpdateCause = ENUMERATED
+       Name{4, 1}changeOfURA
+       Name{4, 1}periodicURAUpdate
+       Name{4, 1}dummy
+       Name{4, 1}spare1
+     {3, 1}{3, 1}protocolErrorIndicator = ProtocolErrorIndicatorWithMoreInfo
+      {5, 1}ProtocolErrorIndicatorWithMoreInfo = CHOICE
+       {4, 1}(1)noError = NULL
+       {4, 1}(2)errorOccurred = SEQUENCE
+        {3, 1}{1, 1}rrc-TransactionIdentifier = RRC-TransactionIdentifier
+         {5, 1}Val{4, 1}RRC-TransactionIdentifier = (0..3) INTEGER flexible
+        {3, 1}{2, 1}protocolErrorInformation = ProtocolErrorInformation
+         {5, 1}ProtocolErrorInformation = SEQUENCE
+          {3, 1}{1, 1}diagnosticsType = CHOICE
+           {4, 1}(1)type1 = SEQUENCE
+            {3, 1}{1, 1}protocolErrorCause = ProtocolErrorCause
+             {5, 1}ProtocolErrorCause = ENUMERATED
+              Name{4, 1}asn1-ViolationOrEncodingError
+              Name{4, 1}messageTypeNonexistent
+              Name{4, 1}messageNotCompatibleWithReceiverState
+              Name{4, 1}ie-ValueNotComprehended
+              Name{4, 1}informationElementMissing
+              Name{4, 1}messageExtensionNotComprehended
+              Name{4, 1}spare2
+              Name{4, 1}spare1
+           {4, 1}(2)spare = NULL
+     {3, 1}{4, 1}laterNonCriticalExtensions = SEQUENCE    OPTIONAL
+      {3, 1}{1, 1}Bits{4, 1}uraUpdate-r3-add-ext = BIT STRING (SIZE(0))    OPTIONAL
+      {3, 1}{2, 1}v770NonCriticalExtensions = SEQUENCE    OPTIONAL
+       {3, 1}{1, 1}uraUpdate-v770ext = UraUpdate-v770ext-IEs
+        {5, 1}UraUpdate-v770ext-IEs = SEQUENCE
+         {3, 1}{1, 1}support-hsdschReception-CellUraPch = ENUMERATED    OPTIONAL
+          Name{4, 1}true
+         {3, 1}{2, 1}support-hsdschReception-CellFach = ENUMERATED    OPTIONAL
+          Name{4, 1}true
+         {0, 0}-- User equipment IEs
+       {3, 1}{2, 1}v860NonCriticalExtensions = SEQUENCE    OPTIONAL
+        {3, 1}{1, 1}uraUpdate-v860ext = URAUpdate-v860ext-IEs
+         {5, 1}URAUpdate-v860ext-IEs = SEQUENCE
+          {3, 1}{1, 1}supportOfHS-DSCHDRXOperation = ENUMERATED    OPTIONAL
+           Name{4, 1}true
+          {3, 1}{2, 1}supportOfCommonEDCH = ENUMERATED    OPTIONAL
+           Name{4, 1}true
+          {3, 1}{3, 1}supportOfMACiis = ENUMERATED    OPTIONAL
+           Name{4, 1}true
+          {0, 0}-- User equipment IEs
+        {3, 1}{2, 1}nonCriticalExtensions = SEQUENCE    OPTIONAL
+      {0, 0}-- Container for additional R99 extensions
+     {0, 0}-- User equipment IEs
+   {4, 1}(4)spare = NULL
